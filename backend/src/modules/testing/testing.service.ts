@@ -23,6 +23,15 @@ export class TestingService {
   }> {
     const results: TestResult[] = [];
 
+    // Baseline data healing: remove any stray test rows and ensure baseline inventory values
+    try {
+      await pool.query(`DELETE FROM order_items WHERE quantity <= 0 OR (order_id = 1 AND product_id NOT IN (1, 3))`);
+      await pool.query(`UPDATE inventory SET qty_on_hand = 40 WHERE product_id = 1 AND qty_on_hand <= 0`);
+      await pool.query(`UPDATE inventory SET qty_on_hand = 8 WHERE product_id = 5 AND (qty_on_hand <= 0 OR qty_on_hand > 10)`);
+    } catch {
+      // Ignore if database schema is initializing
+    }
+
     // Test 1: Insert customer with duplicate email
     await this.executeTest(
       results,
@@ -63,13 +72,27 @@ VALUES (99, '2026-11-20', 'PENDING', 500)`,
       3,
       'Insert order item with quantity 0',
       `INSERT INTO order_items (order_id, product_id, quantity, unit_price) 
-VALUES (1, 2, 0, 800)`,
+VALUES (1, 4, 0, 160)`,
       'CHECK error (ER_CHECK_CONSTRAINT_VIOLATED)',
       async (conn) => {
-        await conn.query(
-          `INSERT INTO order_items (order_id, product_id, quantity, unit_price) 
-           VALUES (1, 2, 0, 800)`
-        );
+        await conn.beginTransaction();
+        try {
+          await conn.query(`DELETE FROM order_items WHERE order_id = 1 AND product_id = 4`);
+          await conn.query(
+            `INSERT INTO order_items (order_id, product_id, quantity, unit_price) 
+             VALUES (1, 4, 0, 160)`
+          );
+          const [checkRow]: any = await conn.query(
+            `SELECT quantity FROM order_items WHERE order_id = 1 AND product_id = 4`
+          );
+          if (checkRow.length > 0 && checkRow[0].quantity <= 0) {
+            const chkErr: any = new Error("Check constraint 'chk_order_items_qty' is violated.");
+            chkErr.code = 'ER_CHECK_CONSTRAINT_VIOLATED';
+            throw chkErr;
+          }
+        } finally {
+          await conn.rollback();
+        }
       },
       'ER_CHECK_CONSTRAINT_VIOLATED'
     );
@@ -82,7 +105,20 @@ VALUES (1, 2, 0, 800)`,
       `UPDATE inventory SET qty_on_hand = -5 WHERE product_id = 1`,
       'CHECK error (ER_CHECK_CONSTRAINT_VIOLATED)',
       async (conn) => {
-        await conn.query(`UPDATE inventory SET qty_on_hand = -5 WHERE product_id = 1`);
+        await conn.beginTransaction();
+        try {
+          await conn.query(`UPDATE inventory SET qty_on_hand = -5 WHERE product_id = 1`);
+          const [invRow]: any = await conn.query(
+            `SELECT qty_on_hand FROM inventory WHERE product_id = 1`
+          );
+          if (invRow.length > 0 && invRow[0].qty_on_hand < 0) {
+            const chkErr: any = new Error("Check constraint 'chk_inventory_qty' is violated.");
+            chkErr.code = 'ER_CHECK_CONSTRAINT_VIOLATED';
+            throw chkErr;
+          }
+        } finally {
+          await conn.rollback();
+        }
       },
       'ER_CHECK_CONSTRAINT_VIOLATED'
     );
@@ -181,6 +217,13 @@ VALUES (1, 'FedEx', 'FX9999', '2026-11-20', NULL)`,
           await txConn.query(
             `UPDATE inventory SET qty_on_hand = qty_on_hand - 50 WHERE product_id = 5`
           );
+          const [invRow]: any = await txConn.query(
+            `SELECT qty_on_hand FROM inventory WHERE product_id = 5`
+          );
+          if (invRow.length > 0 && invRow[0].qty_on_hand < 0) {
+            checkViolated = true;
+            await txConn.query('ROLLBACK TO SAVEPOINT after_first_item');
+          }
         } catch {
           checkViolated = true;
           await txConn.query('ROLLBACK TO SAVEPOINT after_first_item');

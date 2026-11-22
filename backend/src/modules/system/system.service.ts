@@ -29,6 +29,23 @@ export class SystemService {
       const seedsSql = fs.readFileSync(path.join(databaseDir, 'seeds.sql'), 'utf-8');
       const viewsSql = fs.readFileSync(path.join(databaseDir, 'views.sql'), 'utf-8');
 
+      // Clean previous records to prevent orphaned test data
+      try {
+        await conn.query('SET FOREIGN_KEY_CHECKS = 0;');
+        await conn.query('DELETE FROM deliveries;');
+        await conn.query('DELETE FROM payments;');
+        await conn.query('DELETE FROM order_items;');
+        await conn.query('DELETE FROM orders;');
+        await conn.query('DELETE FROM discounts;');
+        await conn.query('DELETE FROM inventory;');
+        await conn.query('DELETE FROM products;');
+        await conn.query('DELETE FROM categories;');
+        await conn.query('DELETE FROM customers;');
+        await conn.query('SET FOREIGN_KEY_CHECKS = 1;');
+      } catch {
+        // Continue if tables don't exist yet
+      }
+
       // 1. Re-apply schema
       await conn.query(schemaSql);
       // 2. Re-apply seeds
