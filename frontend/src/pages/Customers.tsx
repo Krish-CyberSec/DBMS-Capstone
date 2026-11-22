@@ -54,10 +54,15 @@ export const Customers: React.FC = () => {
         page: pagination.page,
         limit: pagination.limit,
       });
-      setCustomers(res.data);
-      setPagination(res.pagination);
+      if (res && Array.isArray(res.data)) {
+        setCustomers(res.data);
+      }
+      if (res && res.pagination) {
+        setPagination(res.pagination);
+      }
     } catch (err: any) {
-      console.error(err);
+      console.error('Failed to load customers:', err);
+      setServerError(err.message || 'Unable to connect to backend server');
     } finally {
       setIsLoading(false);
     }

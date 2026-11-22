@@ -27,6 +27,25 @@ const client = axios.create({
   },
 });
 
+// Guard against Vercel SPA html fallback when backend is unreachable
+client.interceptors.response.use(
+  (response) => {
+    const contentType = String(response.headers['content-type'] || '');
+    if (
+      typeof response.data === 'string' &&
+      (contentType.includes('text/html') ||
+        response.data.trim().startsWith('<!doctype html') ||
+        response.data.trim().startsWith('<html'))
+    ) {
+      throw new Error(
+        'Backend connection error: Expected JSON response but received HTML. Please configure VITE_API_URL in your Vercel project settings to point to your live backend.'
+      );
+    }
+    return response;
+  },
+  (error) => Promise.reject(error)
+);
+
 export const api = {
   // System
   getSystemStatus: () => client.get('/system/status').then((r) => r.data.data),

@@ -47,23 +47,26 @@ export default function QueryLab() {
     const fetchCatalog = async () => {
       try {
         const list = await api.getQueryCatalog();
-        setCatalog(list);
-        if (list.length > 0) {
-          setSelectedQueryId(list[0].id);
-          setCurrentSql(list[0].sql);
+        const safeList = Array.isArray(list) ? list : [];
+        setCatalog(safeList);
+        if (safeList.length > 0) {
+          setSelectedQueryId(safeList[0].id);
+          setCurrentSql(safeList[0].sql);
         }
       } catch (err: any) {
         setError('Failed to load SQL query catalog: ' + (err.message || 'Server error'));
+        setCatalog([]);
       }
     };
     fetchCatalog();
   }, []);
 
   const activeQuery = useMemo(() => {
-    return catalog.find((q) => q.id === selectedQueryId) || null;
+    return Array.isArray(catalog) ? catalog.find((q) => q.id === selectedQueryId) || null : null;
   }, [catalog, selectedQueryId]);
 
   const filteredCatalog = useMemo(() => {
+    if (!Array.isArray(catalog)) return [];
     return catalog.filter((q) => {
       const matchCat = selectedCategory === 'All' || q.category === selectedCategory;
       const matchSearch =

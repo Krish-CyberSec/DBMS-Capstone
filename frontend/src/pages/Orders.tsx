@@ -64,10 +64,15 @@ export const Orders: React.FC = () => {
         page: pagination.page,
         limit: pagination.limit,
       });
-      setOrders(res.data);
-      setPagination(res.pagination);
-    } catch (err) {
-      console.error(err);
+      if (res && Array.isArray(res.data)) {
+        setOrders(res.data);
+      }
+      if (res && res.pagination) {
+        setPagination(res.pagination);
+      }
+    } catch (err: any) {
+      console.error('Failed to load orders:', err);
+      setServerError(err.message || 'Unable to connect to backend server');
     } finally {
       setIsLoading(false);
     }
