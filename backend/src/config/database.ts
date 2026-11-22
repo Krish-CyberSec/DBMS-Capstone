@@ -8,7 +8,8 @@ const __dirname = path.dirname(__filename);
 
 dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 
-const isCloudSSL = process.env.DB_SSL === 'true' || process.env.DB_PORT === '4000';
+const isRemoteHost = !!(process.env.DB_HOST && process.env.DB_HOST !== '127.0.0.1' && process.env.DB_HOST !== 'localhost');
+const isCloudSSL = process.env.DB_SSL === 'true' || process.env.DB_PORT === '4000' || isRemoteHost;
 const sslConfig = isCloudSSL ? { minVersion: 'TLSv1.2', rejectUnauthorized: false } : undefined;
 
 const dbConfig: mysql.PoolOptions = {
@@ -34,8 +35,8 @@ export const pool = mysql.createPool(dbConfig);
 const readOnlyConfig: mysql.PoolOptions = {
   host: process.env.DB_HOST || '127.0.0.1',
   port: parseInt(process.env.DB_PORT || '3306', 10),
-  user: process.env.DB_ANALYST_USER || 'analyst',
-  password: process.env.DB_ANALYST_PASSWORD || 'Pass@123',
+  user: process.env.DB_ANALYST_USER || process.env.DB_USER || 'root',
+  password: process.env.DB_ANALYST_PASSWORD || process.env.DB_PASSWORD || '',
   database: process.env.DB_NAME || 'shop',
   waitForConnections: true,
   connectionLimit: 10,

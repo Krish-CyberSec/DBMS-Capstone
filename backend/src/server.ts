@@ -25,10 +25,10 @@ async function startServer() {
 
   console.log(`✓ Connected to MySQL database \`${process.env.DB_NAME || 'shop'}\` (MySQL ${dbStatus.version})`);
 
-  app.listen(PORT, () => {
-    console.log(`✓ Backend REST API server is listening on http://localhost:${PORT}`);
-    console.log(`✓ API Health Check: http://localhost:${PORT}/health`);
-    console.log(`✓ API Endpoints Root: http://localhost:${PORT}/api`);
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`✓ Backend REST API server is listening on port ${PORT}`);
+    console.log(`✓ API Health Check: http://0.0.0.0:${PORT}/health`);
+    console.log(`✓ API Endpoints Root: http://0.0.0.0:${PORT}/api`);
     console.log('================================================================\n');
   });
 }
