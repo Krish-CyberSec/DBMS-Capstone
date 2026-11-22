@@ -146,14 +146,14 @@ export const Discounts: React.FC = () => {
       header: 'ID',
       sortable: true,
       width: '60px',
-      render: (d) => <span className="font-mono text-slate-500 font-semibold">{d.discount_id}</span>,
+      render: (d) => <span className="font-mono text-indigo-400 font-semibold">{d.discount_id}</span>,
     },
     {
       key: 'code',
       header: 'Coupon Code',
       sortable: true,
       render: (d) => (
-        <span className="font-mono font-bold text-blue-700 bg-blue-50 px-2.5 py-1 rounded-md border border-blue-200">
+        <span className="font-mono font-bold text-indigo-400 bg-indigo-500/10 px-2.5 py-1 rounded-md border border-indigo-500/20">
           {d.code}
         </span>
       ),
@@ -163,7 +163,7 @@ export const Discounts: React.FC = () => {
       header: 'Type',
       sortable: true,
       render: (d) => (
-        <span className="text-xs font-semibold text-slate-700">{d.discount_type}</span>
+        <span className="text-xs font-semibold text-slate-300">{d.discount_type}</span>
       ),
     },
     {
@@ -171,7 +171,7 @@ export const Discounts: React.FC = () => {
       header: 'Discount Value',
       sortable: true,
       render: (d) => (
-        <span className="font-mono font-bold text-slate-900">
+        <span className="font-mono font-bold text-white">
           {d.discount_type === 'PERCENT' ? `${d.value}%` : `₹${d.value}`}
         </span>
       ),
@@ -181,7 +181,7 @@ export const Discounts: React.FC = () => {
       header: 'Valid Until',
       sortable: true,
       render: (d) => (
-        <span className="font-mono text-xs text-slate-600">
+        <span className="font-mono text-xs text-slate-300">
           {d.valid_to ? d.valid_to.split('T')[0] : '—'}
         </span>
       ),
@@ -192,7 +192,7 @@ export const Discounts: React.FC = () => {
       render: (d) => (
         <span
           className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold ${
-            d.is_active ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-rose-50 text-rose-700 border border-rose-200'
+            d.is_active ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-rose-500/10 text-rose-400 border border-rose-500/20'
           }`}
         >
           {d.is_active ? 'Active' : 'Expired'}
@@ -204,10 +204,10 @@ export const Discounts: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Coupon Tester Card */}
-      <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="bg-slate-900/80 p-4 rounded-xl border border-slate-800/80 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center space-x-1.5">
-            <Percent className="w-3.5 h-3.5 text-blue-600" />
+          <h3 className="text-xs font-bold text-white uppercase tracking-wider flex items-center space-x-1.5">
+            <Percent className="w-3.5 h-3.5 text-indigo-400" />
             <span>Test Coupon Validation</span>
           </h3>
           <p className="text-xs text-slate-400 mt-0.5">Test checking coupon status (e.g. SAVE10 or WELCOME5)</p>
@@ -219,11 +219,11 @@ export const Discounts: React.FC = () => {
             value={testCode}
             onChange={(e) => setTestCode(e.target.value.toUpperCase())}
             placeholder="ENTER CODE (e.g. SAVE10)"
-            className="text-xs font-mono uppercase px-3 py-1.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 bg-slate-50 w-44"
+            className="text-xs font-mono uppercase px-3 py-1.5 border border-slate-700 rounded-lg focus:ring-1 focus:ring-indigo-500 bg-slate-950 text-slate-100 w-44"
           />
           <button
             type="submit"
-            className="px-3 py-1.5 text-xs font-semibold text-white bg-slate-800 hover:bg-slate-700 rounded-lg transition-colors"
+            className="px-3 py-1.5 text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg transition-colors cursor-pointer"
           >
             Check
           </button>
@@ -232,12 +232,12 @@ export const Discounts: React.FC = () => {
         {testResult && (
           <div className="text-xs flex items-center space-x-2">
             {testResult.success ? (
-              <span className="flex items-center text-emerald-600 font-medium">
+              <span className="flex items-center text-emerald-400 font-medium">
                 <CheckCircle2 className="w-4 h-4 mr-1" />
                 Valid: {testResult.data.value}% off until {testResult.data.valid_to?.split('T')[0]}
               </span>
             ) : (
-              <span className="flex items-center text-rose-600 font-medium">
+              <span className="flex items-center text-rose-400 font-medium">
                 <XCircle className="w-4 h-4 mr-1" />
                 {testResult.message}
               </span>
@@ -266,14 +266,14 @@ export const Discounts: React.FC = () => {
           <div className="flex items-center justify-end space-x-1">
             <button
               onClick={() => openEditModal(d)}
-              className="p-1.5 text-slate-400 hover:text-amber-600 hover:bg-amber-50 rounded transition-colors"
+              className="p-1.5 text-slate-400 hover:text-amber-400 hover:bg-slate-800 rounded transition-colors"
               title="Edit Discount"
             >
               <Edit2 className="w-4 h-4" />
             </button>
             <button
               onClick={() => setDeletingDiscount(d)}
-              className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded transition-colors"
+              className="p-1.5 text-slate-400 hover:text-rose-400 hover:bg-slate-800 rounded transition-colors"
               title="Delete Discount"
             >
               <Trash2 className="w-4 h-4" />
@@ -291,28 +291,28 @@ export const Discounts: React.FC = () => {
       >
         <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-4">
           {serverError && (
-            <div className="p-3 text-xs bg-rose-50 border border-rose-200 rounded-lg text-rose-700 font-medium">
+            <div className="p-3 text-xs bg-rose-500/10 border border-rose-500/30 rounded-lg text-rose-400 font-medium">
               {serverError}
             </div>
           )}
 
           <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">Coupon Code (Unique) *</label>
+            <label className="block text-xs font-semibold text-slate-300 mb-1">Coupon Code (Unique) *</label>
             <input
               type="text"
               {...register('code')}
               placeholder="e.g. FESTIVE20"
-              className="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none font-mono uppercase"
+              className="w-full text-xs px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-slate-100 placeholder-slate-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none font-mono uppercase"
             />
-            {errors.code && <p className="text-[11px] text-rose-600 mt-1">{errors.code.message}</p>}
+            {errors.code && <p className="text-[11px] text-rose-400 mt-1">{errors.code.message}</p>}
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">Discount Type *</label>
+              <label className="block text-xs font-semibold text-slate-300 mb-1">Discount Type *</label>
               <select
                 {...register('discount_type')}
-                className="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white"
+                className="w-full text-xs px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-slate-100 focus:ring-1 focus:ring-indigo-500 focus:outline-none"
               >
                 <option value="PERCENT">PERCENT (%)</option>
                 <option value="FLAT">FLAT (₹)</option>
@@ -320,7 +320,7 @@ export const Discounts: React.FC = () => {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">
+              <label className="block text-xs font-semibold text-slate-300 mb-1">
                 Value * <span className="font-normal text-slate-400">— &gt; 0</span>
               </label>
               <input
@@ -328,36 +328,36 @@ export const Discounts: React.FC = () => {
                 step="0.01"
                 {...register('value')}
                 placeholder="e.g. 15.00"
-                className="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none font-mono"
+                className="w-full text-xs px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-slate-100 placeholder-slate-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none font-mono"
               />
-              {errors.value && <p className="text-[11px] text-rose-600 mt-1">{errors.value.message}</p>}
+              {errors.value && <p className="text-[11px] text-rose-400 mt-1">{errors.value.message}</p>}
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">Valid Until (Date) *</label>
+            <label className="block text-xs font-semibold text-slate-300 mb-1">Valid Until (Date) *</label>
             <input
               type="date"
               {...register('valid_to')}
-              className="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none font-mono"
+              className="w-full text-xs px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-slate-100 focus:ring-1 focus:ring-indigo-500 focus:outline-none font-mono"
             />
             {errors.valid_to && (
-              <p className="text-[11px] text-rose-600 mt-1">{errors.valid_to.message}</p>
+              <p className="text-[11px] text-rose-400 mt-1">{errors.valid_to.message}</p>
             )}
           </div>
 
-          <div className="flex items-center justify-end space-x-2 pt-4 border-t border-slate-100">
+          <div className="flex items-center justify-end space-x-2 pt-4 border-t border-slate-800">
             <button
               type="button"
               onClick={() => setIsFormOpen(false)}
-              className="px-4 py-2 text-xs font-medium text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors"
+              className="px-4 py-2 text-xs font-semibold text-slate-300 bg-slate-800 border border-slate-700 rounded-lg hover:bg-slate-700 hover:text-white transition cursor-pointer"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="px-4 py-2 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors disabled:opacity-50"
+              className="px-4 py-2 text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg transition shadow-sm cursor-pointer disabled:opacity-50"
             >
               {isSubmitting ? 'Saving...' : editingDiscount ? 'Update Code' : 'Create Code'}
             </button>

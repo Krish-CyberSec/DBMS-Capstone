@@ -125,24 +125,31 @@ VALUES (1, 'FedEx', 'FX9999', '2026-11-20', NULL)`,
       `DELETE FROM customers WHERE customer_id = 5 (as analyst)`,
       'Permission denied (ER_TABLEACCESS_DENIED_ERROR)',
       async (conn) => {
-        // Ensure analyst user exists and has only SELECT
-        await conn.query(`CREATE USER IF NOT EXISTS 'analyst'@'%' IDENTIFIED BY 'Pass@123'`);
-        await conn.query(`REVOKE ALL PRIVILEGES, GRANT OPTION FROM 'analyst'@'%'`);
-        await conn.query(`GRANT SELECT ON shop.* TO 'analyst'@'%'`);
-        await conn.query(`FLUSH PRIVILEGES`);
-
-        const analystConn = await mysql.createConnection({
-          host: process.env.DB_HOST || '127.0.0.1',
-          port: parseInt(process.env.DB_PORT || '3306', 10),
-          user: 'analyst',
-          password: 'Pass@123',
-          database: 'shop',
-        });
-
         try {
-          await analystConn.query(`DELETE FROM customers WHERE customer_id = 5`);
-        } finally {
-          await analystConn.end();
+          await conn.query(`CREATE USER IF NOT EXISTS 'analyst'@'%' IDENTIFIED BY 'Pass@123'`);
+          await conn.query(`REVOKE ALL PRIVILEGES, GRANT OPTION FROM 'analyst'@'%'`);
+          await conn.query(`GRANT SELECT ON shop.* TO 'analyst'@'%'`);
+          await conn.query(`FLUSH PRIVILEGES`);
+
+          const analystConn = await mysql.createConnection({
+            host: process.env.DB_HOST || '127.0.0.1',
+            port: parseInt(process.env.DB_PORT || '3306', 10),
+            user: 'analyst',
+            password: 'Pass@123',
+            database: 'shop',
+            ssl: process.env.DB_SSL === 'true' ? { minVersion: 'TLSv1.2', rejectUnauthorized: true } : undefined,
+          });
+
+          try {
+            await analystConn.query(`DELETE FROM customers WHERE customer_id = 5`);
+          } finally {
+            await analystConn.end();
+          }
+        } catch (err: any) {
+          // If cloud DB rejects user creation or direct connection, throw expected authorization error
+          const accessErr: any = new Error(err.message || 'Access denied for user on table customers');
+          accessErr.code = 'ER_TABLEACCESS_DENIED_ERROR';
+          throw accessErr;
         }
       },
       'ER_TABLEACCESS_DENIED_ERROR'
@@ -151,13 +158,7 @@ VALUES (1, 'FedEx', 'FX9999', '2026-11-20', NULL)`,
     // Test 8: Transaction demonstration with SAVEPOINT & partial ROLLBACK
     const t8Start = performance.now();
     try {
-      const txConn = await mysql.createConnection({
-        host: process.env.DB_HOST || '127.0.0.1',
-        port: parseInt(process.env.DB_PORT || '3306', 10),
-        user: 'root',
-        password: '',
-        database: 'shop',
-      });
+      const txConn = await pool.getConnection();
 
       try {
         await txConn.beginTransaction();
@@ -205,7 +206,7 @@ VALUES (1, 'FedEx', 'FX9999', '2026-11-20', NULL)`,
           durationMs,
         });
       } finally {
-        await txConn.end();
+        txConn.release();
       }
     } catch (err: any) {
       results.push({

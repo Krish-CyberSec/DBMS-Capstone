@@ -124,43 +124,43 @@ export const Overview: React.FC = () => {
 
       {/* Secondary Status Counters */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
-        <div className="bg-white p-4 rounded-xl border border-slate-200/80 shadow-xs flex items-center space-x-3">
-          <div className="p-2.5 bg-amber-50 rounded-lg text-amber-600 border border-amber-100">
+        <div className="bg-slate-900/80 p-4 rounded-xl border border-slate-800/80 shadow-xs flex items-center space-x-3">
+          <div className="p-2.5 bg-amber-500/10 rounded-lg text-amber-400 border border-amber-500/20">
             <Clock className="w-4 h-4" />
           </div>
           <div>
-            <p className="text-xs text-slate-500 font-medium">Pending Orders</p>
-            <p className="text-lg font-bold text-slate-800">{kpi?.pendingOrders ?? 0}</p>
+            <p className="text-xs text-slate-400 font-medium">Pending Orders</p>
+            <p className="text-lg font-bold text-white">{kpi?.pendingOrders ?? 0}</p>
           </div>
         </div>
 
-        <div className="bg-white p-4 rounded-xl border border-slate-200/80 shadow-xs flex items-center space-x-3">
-          <div className="p-2.5 bg-rose-50 rounded-lg text-rose-600 border border-rose-100">
+        <div className="bg-slate-900/80 p-4 rounded-xl border border-slate-800/80 shadow-xs flex items-center space-x-3">
+          <div className="p-2.5 bg-rose-500/10 rounded-lg text-rose-400 border border-rose-500/20">
             <Ban className="w-4 h-4" />
           </div>
           <div>
-            <p className="text-xs text-slate-500 font-medium">Cancelled Orders</p>
-            <p className="text-lg font-bold text-slate-800">{kpi?.cancelledOrders ?? 0}</p>
+            <p className="text-xs text-slate-400 font-medium">Cancelled Orders</p>
+            <p className="text-lg font-bold text-white">{kpi?.cancelledOrders ?? 0}</p>
           </div>
         </div>
 
-        <div className="bg-white p-4 rounded-xl border border-slate-200/80 shadow-xs flex items-center space-x-3">
-          <div className="p-2.5 bg-amber-50 rounded-lg text-amber-600 border border-amber-100">
+        <div className="bg-slate-900/80 p-4 rounded-xl border border-slate-800/80 shadow-xs flex items-center space-x-3">
+          <div className="p-2.5 bg-amber-500/10 rounded-lg text-amber-400 border border-amber-500/20">
             <AlertTriangle className="w-4 h-4" />
           </div>
           <div>
-            <p className="text-xs text-slate-500 font-medium">Low Stock Items</p>
-            <p className="text-lg font-bold text-slate-800">{kpi?.lowStockProducts ?? 0}</p>
+            <p className="text-xs text-slate-400 font-medium">Low Stock Items</p>
+            <p className="text-lg font-bold text-white">{kpi?.lowStockProducts ?? 0}</p>
           </div>
         </div>
 
-        <div className="bg-white p-4 rounded-xl border border-slate-200/80 shadow-xs flex items-center space-x-3">
-          <div className="p-2.5 bg-blue-50 rounded-lg text-blue-600 border border-blue-100">
+        <div className="bg-slate-900/80 p-4 rounded-xl border border-slate-800/80 shadow-xs flex items-center space-x-3">
+          <div className="p-2.5 bg-indigo-500/10 rounded-lg text-indigo-400 border border-indigo-500/20">
             <Repeat className="w-4 h-4" />
           </div>
           <div>
-            <p className="text-xs text-slate-500 font-medium">Repeat Customers</p>
-            <p className="text-lg font-bold text-slate-800">{kpi?.repeatCustomers ?? 0}</p>
+            <p className="text-xs text-slate-400 font-medium">Repeat Customers</p>
+            <p className="text-lg font-bold text-white">{kpi?.repeatCustomers ?? 0}</p>
           </div>
         </div>
       </div>
@@ -168,55 +168,55 @@ export const Overview: React.FC = () => {
       {/* Row 1 Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Revenue Over Time */}
-        <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm">
+        <div className="bg-slate-900/80 p-5 rounded-xl border border-slate-800/80 shadow-sm">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="text-sm font-bold text-slate-800">Revenue Over Time</h3>
+              <h3 className="text-sm font-bold text-white">Revenue Over Time</h3>
               <p className="text-xs text-slate-400">Daily sales aggregation from valid orders</p>
             </div>
-            <TrendingUp className="w-4 h-4 text-blue-600" />
+            <TrendingUp className="w-4 h-4 text-indigo-400" />
           </div>
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={charts?.revenueOverTime || []}>
                 <defs>
                   <linearGradient id="colorRev" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#2563eb" stopOpacity={0.4} />
-                    <stop offset="95%" stopColor="#2563eb" stopOpacity={0.0} />
+                    <stop offset="5%" stopColor="#6366f1" stopOpacity={0.4} />
+                    <stop offset="95%" stopColor="#6366f1" stopOpacity={0.0} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#334155" />
                 <XAxis dataKey="order_date" tick={{ fontSize: 11 }} stroke="#94a3b8" />
                 <YAxis tick={{ fontSize: 11 }} stroke="#94a3b8" />
                 <Tooltip
                   formatter={(val: any) => [`₹${Number(val).toLocaleString()}`, 'Daily Revenue']}
-                  contentStyle={{ fontSize: '12px', borderRadius: '8px' }}
+                  contentStyle={{ backgroundColor: '#0f172a', borderColor: '#334155', color: '#f8fafc', borderRadius: '8px', fontSize: '12px' }}
                 />
-                <Area type="monotone" dataKey="daily_revenue" stroke="#2563eb" strokeWidth={2} fill="url(#colorRev)" />
+                <Area type="monotone" dataKey="daily_revenue" stroke="#6366f1" strokeWidth={2} fill="url(#colorRev)" />
               </AreaChart>
             </ResponsiveContainer>
           </div>
         </div>
 
         {/* Orders by Status */}
-        <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm">
+        <div className="bg-slate-900/80 p-5 rounded-xl border border-slate-800/80 shadow-sm">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="text-sm font-bold text-slate-800">Orders Distribution by Status</h3>
+              <h3 className="text-sm font-bold text-white">Orders Distribution by Status</h3>
               <p className="text-xs text-slate-400">Order lifecycle state breakdown</p>
             </div>
           </div>
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={charts?.ordersByStatus || []}>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#334155" />
                 <XAxis dataKey="status" tick={{ fontSize: 11 }} stroke="#94a3b8" />
                 <YAxis tick={{ fontSize: 11 }} stroke="#94a3b8" />
                 <Tooltip
                   formatter={(val: any) => [val, 'Orders Count']}
-                  contentStyle={{ fontSize: '12px', borderRadius: '8px' }}
+                  contentStyle={{ backgroundColor: '#0f172a', borderColor: '#334155', color: '#f8fafc', borderRadius: '8px', fontSize: '12px' }}
                 />
-                <Bar dataKey="count" fill="#3b82f6" radius={[6, 6, 0, 0]} />
+                <Bar dataKey="count" fill="#6366f1" radius={[6, 6, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -226,10 +226,10 @@ export const Overview: React.FC = () => {
       {/* Row 2 Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Best Selling Products */}
-        <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm lg:col-span-2">
+        <div className="bg-slate-900/80 p-5 rounded-xl border border-slate-800/80 shadow-sm lg:col-span-2">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="text-sm font-bold text-slate-800">Best-Selling Products by Revenue & Units</h3>
+              <h3 className="text-sm font-bold text-white">Best-Selling Products by Revenue & Units</h3>
               <p className="text-xs text-slate-400">Top catalog items ranked by cumulative volume</p>
             </div>
           </div>
@@ -240,7 +240,7 @@ export const Overview: React.FC = () => {
                 layout="vertical"
                 margin={{ left: 20, right: 20 }}
               >
-                <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#f1f5f9" />
+                <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#334155" />
                 <XAxis type="number" tick={{ fontSize: 11 }} stroke="#94a3b8" />
                 <YAxis dataKey="product_name" type="category" tick={{ fontSize: 11 }} stroke="#94a3b8" width={130} />
                 <Tooltip
@@ -248,21 +248,21 @@ export const Overview: React.FC = () => {
                     name === 'revenue' ? `₹${Number(val).toLocaleString()}` : val,
                     name === 'revenue' ? 'Revenue' : 'Units Sold',
                   ]}
-                  contentStyle={{ fontSize: '12px', borderRadius: '8px' }}
+                  contentStyle={{ backgroundColor: '#0f172a', borderColor: '#334155', color: '#f8fafc', borderRadius: '8px', fontSize: '12px' }}
                 />
-                <Legend wrapperStyle={{ fontSize: '11px' }} />
+                <Legend wrapperStyle={{ fontSize: '11px', color: '#94a3b8' }} />
                 <Bar dataKey="revenue" fill="#10b981" radius={[0, 4, 4, 0]} />
-                <Bar dataKey="units_sold" fill="#6366f1" radius={[0, 4, 4, 0]} />
+                <Bar dataKey="units_sold" fill="#818cf8" radius={[0, 4, 4, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
         </div>
 
         {/* Customer Cohort Segmentation (vw_customer_type) */}
-        <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm">
+        <div className="bg-slate-900/80 p-5 rounded-xl border border-slate-800/80 shadow-sm">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="text-sm font-bold text-slate-800">Customer Segmentation</h3>
+              <h3 className="text-sm font-bold text-white">Customer Segmentation</h3>
               <p className="text-xs text-slate-400">From View `vw_customer_type`</p>
             </div>
           </div>
@@ -287,7 +287,7 @@ export const Overview: React.FC = () => {
                 </Pie>
                 <Tooltip
                   formatter={(val: any, name: any) => [`${val} Customers`, name]}
-                  contentStyle={{ fontSize: '12px', borderRadius: '8px' }}
+                  contentStyle={{ backgroundColor: '#0f172a', borderColor: '#334155', color: '#f8fafc', borderRadius: '8px', fontSize: '12px' }}
                 />
               </PieChart>
             </ResponsiveContainer>

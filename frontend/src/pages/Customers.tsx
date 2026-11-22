@@ -148,7 +148,7 @@ export const Customers: React.FC = () => {
       header: 'ID',
       sortable: true,
       width: '60px',
-      render: (c) => <span className="font-mono text-slate-500 font-semibold">{c.customer_id}</span>,
+      render: (c) => <span className="font-mono text-indigo-400 font-semibold">{c.customer_id}</span>,
     },
     {
       key: 'first_name',
@@ -156,7 +156,7 @@ export const Customers: React.FC = () => {
       sortable: true,
       render: (c) => (
         <div>
-          <p className="font-semibold text-slate-900">{c.first_name} {c.last_name}</p>
+          <p className="font-semibold text-white">{c.first_name} {c.last_name}</p>
         </div>
       ),
     },
@@ -165,8 +165,8 @@ export const Customers: React.FC = () => {
       header: 'Email Address',
       sortable: true,
       render: (c) => (
-        <div className="flex items-center space-x-1.5 text-slate-600">
-          <Mail className="w-3.5 h-3.5 text-slate-400" />
+        <div className="flex items-center space-x-1.5 text-slate-300">
+          <Mail className="w-3.5 h-3.5 text-indigo-400 shrink-0" />
           <span>{c.email}</span>
         </div>
       ),
@@ -175,8 +175,8 @@ export const Customers: React.FC = () => {
       key: 'phone',
       header: 'Phone',
       render: (c) => (
-        <div className="flex items-center space-x-1.5 text-slate-600 font-mono">
-          <Phone className="w-3.5 h-3.5 text-slate-400" />
+        <div className="flex items-center space-x-1.5 text-slate-300 font-mono">
+          <Phone className="w-3.5 h-3.5 text-slate-400 shrink-0" />
           <span>{c.phone || '—'}</span>
         </div>
       ),
@@ -185,7 +185,7 @@ export const Customers: React.FC = () => {
       key: 'address',
       header: 'Address',
       render: (c) => (
-        <div className="flex items-center space-x-1.5 text-slate-600 truncate max-w-xs">
+        <div className="flex items-center space-x-1.5 text-slate-300 truncate max-w-xs">
           <MapPin className="w-3.5 h-3.5 text-slate-400 shrink-0" />
           <span className="truncate">{c.address || '—'}</span>
         </div>
@@ -215,21 +215,21 @@ export const Customers: React.FC = () => {
           <div className="flex items-center justify-end space-x-1">
             <button
               onClick={() => openViewModal(c)}
-              className="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded transition-colors"
+              className="p-1.5 text-slate-400 hover:text-indigo-400 hover:bg-slate-800 rounded transition-colors"
               title="View Profile & Orders"
             >
               <Eye className="w-4 h-4" />
             </button>
             <button
               onClick={() => openEditModal(c)}
-              className="p-1.5 text-slate-400 hover:text-amber-600 hover:bg-amber-50 rounded transition-colors"
+              className="p-1.5 text-slate-400 hover:text-amber-400 hover:bg-slate-800 rounded transition-colors"
               title="Edit Profile"
             >
               <Edit2 className="w-4 h-4" />
             </button>
             <button
               onClick={() => setDeletingCustomer(c)}
-              className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded transition-colors"
+              className="p-1.5 text-slate-400 hover:text-rose-400 hover:bg-slate-800 rounded transition-colors"
               title="Delete Customer"
             >
               <Trash2 className="w-4 h-4" />
@@ -251,90 +251,90 @@ export const Customers: React.FC = () => {
       >
         <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-4">
           {serverError && (
-            <div className="p-3 text-xs bg-rose-50 border border-rose-200 rounded-lg text-rose-700 font-medium">
+            <div className="p-3 text-xs bg-rose-500/10 border border-rose-500/30 rounded-lg text-rose-400 font-medium">
               {serverError}
             </div>
           )}
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">First Name *</label>
+              <label className="block text-xs font-semibold text-slate-300 mb-1">First Name *</label>
               <input
                 type="text"
                 {...register('first_name')}
                 placeholder="e.g. Aarav"
-                className="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                className="w-full text-xs px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-slate-100 placeholder-slate-500 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none"
               />
               {errors.first_name && (
-                <p className="text-[11px] text-rose-600 mt-1">{errors.first_name.message}</p>
+                <p className="text-[11px] text-rose-400 mt-1">{errors.first_name.message}</p>
               )}
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">Last Name *</label>
+              <label className="block text-xs font-semibold text-slate-300 mb-1">Last Name *</label>
               <input
                 type="text"
                 {...register('last_name')}
                 placeholder="e.g. Sharma"
-                className="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                className="w-full text-xs px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-slate-100 placeholder-slate-500 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none"
               />
               {errors.last_name && (
-                <p className="text-[11px] text-rose-600 mt-1">{errors.last_name.message}</p>
+                <p className="text-[11px] text-rose-400 mt-1">{errors.last_name.message}</p>
               )}
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">Email Address *</label>
+            <label className="block text-xs font-semibold text-slate-300 mb-1">Email Address *</label>
             <input
               type="email"
               {...register('email')}
               placeholder="e.g. aarav@mail.com"
-              className="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              className="w-full text-xs px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-slate-100 placeholder-slate-500 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none"
             />
             {errors.email && (
-              <p className="text-[11px] text-rose-600 mt-1">{errors.email.message}</p>
+              <p className="text-[11px] text-rose-400 mt-1">{errors.email.message}</p>
             )}
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">Phone Number</label>
+            <label className="block text-xs font-semibold text-slate-300 mb-1">Phone Number</label>
             <input
               type="text"
               {...register('phone')}
               placeholder="e.g. 9810000001"
-              className="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              className="w-full text-xs px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-slate-100 placeholder-slate-500 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none"
             />
             {errors.phone && (
-              <p className="text-[11px] text-rose-600 mt-1">{errors.phone.message}</p>
+              <p className="text-[11px] text-rose-400 mt-1">{errors.phone.message}</p>
             )}
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">Address</label>
+            <label className="block text-xs font-semibold text-slate-300 mb-1">Address</label>
             <textarea
               {...register('address')}
               rows={2}
               placeholder="e.g. Rohini, Delhi"
-              className="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none resize-none"
+              className="w-full text-xs px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-slate-100 placeholder-slate-500 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none resize-none"
             />
             {errors.address && (
-              <p className="text-[11px] text-rose-600 mt-1">{errors.address.message}</p>
+              <p className="text-[11px] text-rose-400 mt-1">{errors.address.message}</p>
             )}
           </div>
 
-          <div className="flex items-center justify-end space-x-2 pt-4 border-t border-slate-100">
+          <div className="flex items-center justify-end space-x-2 pt-4 border-t border-slate-800">
             <button
               type="button"
               onClick={() => setIsFormOpen(false)}
-              className="px-4 py-2 text-xs font-medium text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors"
+              className="px-4 py-2 text-xs font-semibold text-slate-300 bg-slate-800 border border-slate-700 rounded-lg hover:bg-slate-700 hover:text-white transition cursor-pointer"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="px-4 py-2 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors disabled:opacity-50"
+              className="px-4 py-2 text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg transition shadow-sm cursor-pointer disabled:opacity-50"
             >
               {isSubmitting ? 'Saving...' : editingCustomer ? 'Update Customer' : 'Create Customer'}
             </button>
@@ -351,31 +351,31 @@ export const Customers: React.FC = () => {
         maxWidth="2xl"
       >
         <div className="space-y-5">
-          <div className="grid grid-cols-2 gap-4 p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs">
+          <div className="grid grid-cols-2 gap-4 p-4 rounded-xl bg-slate-950/60 border border-slate-800 text-xs">
             <div>
-              <p className="text-slate-500">Contact Number</p>
-              <p className="font-semibold text-slate-800 mt-0.5">{viewingCustomer?.phone || 'Not provided'}</p>
+              <p className="text-slate-400">Contact Number</p>
+              <p className="font-semibold text-white mt-0.5">{viewingCustomer?.phone || 'Not provided'}</p>
             </div>
             <div>
-              <p className="text-slate-500">Shipping Address</p>
-              <p className="font-semibold text-slate-800 mt-0.5">{viewingCustomer?.address || 'Not provided'}</p>
+              <p className="text-slate-400">Shipping Address</p>
+              <p className="font-semibold text-white mt-0.5">{viewingCustomer?.address || 'Not provided'}</p>
             </div>
           </div>
 
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-600 mb-3 flex items-center space-x-1.5">
-              <ShoppingBag className="w-4 h-4 text-blue-600" />
+            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3 flex items-center space-x-1.5">
+              <ShoppingBag className="w-4 h-4 text-indigo-400" />
               <span>Order History ({viewingCustomer?.orders?.length || 0})</span>
             </h4>
 
             {viewingCustomer?.orders?.length === 0 ? (
-              <p className="text-xs text-slate-400 italic py-4 text-center">
+              <p className="text-xs text-slate-500 italic py-4 text-center">
                 This customer has not placed any orders yet (Query 2 demonstration case).
               </p>
             ) : (
-              <div className="border border-slate-200 rounded-xl overflow-hidden">
+              <div className="border border-slate-800 rounded-xl overflow-hidden">
                 <table className="w-full text-left text-xs">
-                  <thead className="bg-slate-100 text-slate-600 font-semibold border-b border-slate-200">
+                  <thead className="bg-slate-950/80 text-slate-400 font-semibold border-b border-slate-800">
                     <tr>
                       <th className="py-2.5 px-3">Order ID</th>
                       <th className="py-2.5 px-3">Order Date</th>
@@ -383,15 +383,15 @@ export const Customers: React.FC = () => {
                       <th className="py-2.5 px-3 text-right">Total Amount</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100">
+                  <tbody className="divide-y divide-slate-800/60 text-slate-200">
                     {viewingCustomer?.orders?.map((ord: any) => (
-                      <tr key={ord.order_id}>
-                        <td className="py-2 px-3 font-mono font-semibold text-slate-800">#{ord.order_id}</td>
-                        <td className="py-2 px-3 text-slate-600">{ord.order_date?.split('T')[0]}</td>
+                      <tr key={ord.order_id} className="hover:bg-slate-800/40">
+                        <td className="py-2 px-3 font-mono font-semibold text-indigo-400">#{ord.order_id}</td>
+                        <td className="py-2 px-3 text-slate-300">{ord.order_date?.split('T')[0]}</td>
                         <td className="py-2 px-3">
                           <StatusBadge status={ord.status} />
                         </td>
-                        <td className="py-2 px-3 text-right font-mono font-bold text-slate-900">
+                        <td className="py-2 px-3 text-right font-mono font-bold text-white">
                           ₹{Number(ord.total_amount).toLocaleString()}
                         </td>
                       </tr>

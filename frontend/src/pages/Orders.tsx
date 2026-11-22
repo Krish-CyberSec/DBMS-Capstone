@@ -237,14 +237,14 @@ export const Orders: React.FC = () => {
       header: 'Order #',
       sortable: true,
       width: '80px',
-      render: (o) => <span className="font-mono text-slate-800 font-bold">#{o.order_id}</span>,
+      render: (o) => <span className="font-mono text-indigo-400 font-bold">#{o.order_id}</span>,
     },
     {
       key: 'order_date',
       header: 'Date Placed',
       sortable: true,
       render: (o) => (
-        <span className="font-mono text-xs text-slate-600">{o.order_date?.split('T')[0]}</span>
+        <span className="font-mono text-xs text-slate-300">{o.order_date?.split('T')[0]}</span>
       ),
     },
     {
@@ -253,7 +253,7 @@ export const Orders: React.FC = () => {
       sortable: true,
       render: (o) => (
         <div>
-          <p className="font-semibold text-slate-900">{o.customer_name}</p>
+          <p className="font-semibold text-white">{o.customer_name}</p>
           <p className="text-[11px] text-slate-400">{o.customer_email}</p>
         </div>
       ),
@@ -269,11 +269,11 @@ export const Orders: React.FC = () => {
       header: 'Discount Code',
       render: (o) =>
         o.discount_code ? (
-          <span className="font-mono text-[11px] bg-blue-50 text-blue-700 px-2 py-0.5 rounded font-semibold border border-blue-200">
+          <span className="font-mono text-[11px] bg-indigo-500/10 text-indigo-400 px-2 py-0.5 rounded font-semibold border border-indigo-500/20">
             {o.discount_code} (-{o.discount_value}%)
           </span>
         ) : (
-          <span className="text-slate-300">—</span>
+          <span className="text-slate-500">—</span>
         ),
     },
     {
@@ -281,7 +281,7 @@ export const Orders: React.FC = () => {
       header: 'Total Amount',
       sortable: true,
       render: (o) => (
-        <span className="font-mono font-bold text-slate-900">
+        <span className="font-mono font-bold text-white">
           ₹{Number(o.total_amount).toLocaleString()}
         </span>
       ),
@@ -291,13 +291,13 @@ export const Orders: React.FC = () => {
       header: 'Delivery Courier',
       render: (o) =>
         o.has_delivery ? (
-          <div className="flex items-center space-x-1 text-slate-700 text-xs">
-            <Truck className="w-3.5 h-3.5 text-blue-600" />
+          <div className="flex items-center space-x-1.5 text-slate-300 text-xs">
+            <Truck className="w-3.5 h-3.5 text-indigo-400" />
             <span>{o.courier}</span>
             <span className="text-[10px] font-mono text-slate-400">({o.tracking_no})</span>
           </div>
         ) : (
-          <span className="text-slate-400 text-xs italic">Unassigned</span>
+          <span className="text-slate-500 text-xs italic">Unassigned</span>
         ),
     },
   ];
@@ -305,13 +305,13 @@ export const Orders: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Top Filter Bar */}
-      <div className="bg-white p-3.5 rounded-xl border border-slate-200/80 shadow-xs flex items-center justify-between gap-4">
+      <div className="bg-slate-900/80 p-3.5 rounded-xl border border-slate-800/80 shadow-xs flex items-center justify-between gap-4">
         <div className="flex items-center space-x-2">
-          <span className="text-xs font-semibold text-slate-600">Filter Status:</span>
+          <span className="text-xs font-semibold text-slate-300">Filter Status:</span>
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="text-xs py-1.5 px-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 bg-slate-50"
+            className="text-xs py-1.5 px-3 border border-slate-700 rounded-lg focus:ring-1 focus:ring-indigo-500 bg-slate-950 text-slate-200"
           >
             <option value="">All Statuses</option>
             <option value="PENDING">PENDING</option>
@@ -343,14 +343,14 @@ export const Orders: React.FC = () => {
           <div className="flex items-center justify-end space-x-1">
             <button
               onClick={() => openViewModal(o.order_id)}
-              className="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded transition-colors"
+              className="p-1.5 text-slate-400 hover:text-indigo-400 hover:bg-slate-800 rounded transition-colors"
               title="View Order Details & Line Items"
             >
               <Eye className="w-4 h-4" />
             </button>
             <button
               onClick={() => setDeletingOrder(o)}
-              className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded transition-colors"
+              className="p-1.5 text-slate-400 hover:text-rose-400 hover:bg-slate-800 rounded transition-colors"
               title="Delete Order"
             >
               <Trash2 className="w-4 h-4" />
@@ -369,8 +369,8 @@ export const Orders: React.FC = () => {
       >
         <form onSubmit={handleCreateOrder} className="space-y-4">
           {serverError && (
-            <div className="p-3 text-xs bg-rose-50 border border-rose-200 rounded-lg text-rose-700 font-medium flex items-start space-x-2">
-              <AlertCircle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
+            <div className="p-3 text-xs bg-rose-500/10 border border-rose-500/30 rounded-lg text-rose-400 font-medium flex items-start space-x-2">
+              <AlertCircle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
               <span>{serverError}</span>
             </div>
           )}
@@ -378,11 +378,11 @@ export const Orders: React.FC = () => {
           {/* Customer & Date */}
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">Select Customer *</label>
+              <label className="block text-xs font-semibold text-slate-300 mb-1">Select Customer *</label>
               <select
                 value={selectedCustomerId}
                 onChange={(e) => setSelectedCustomerId(Number(e.target.value))}
-                className="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white"
+                className="w-full text-xs px-3 py-2 border border-slate-700 rounded-lg focus:ring-1 focus:ring-indigo-500 bg-slate-950 text-slate-100"
                 required
               >
                 {customers.map((c) => (
@@ -394,12 +394,12 @@ export const Orders: React.FC = () => {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">Order Date *</label>
+              <label className="block text-xs font-semibold text-slate-300 mb-1">Order Date *</label>
               <input
                 type="date"
                 value={orderDate}
                 onChange={(e) => setOrderDate(e.target.value)}
-                className="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white font-mono"
+                className="w-full text-xs px-3 py-2 border border-slate-700 rounded-lg focus:ring-1 focus:ring-indigo-500 bg-slate-950 text-slate-100 font-mono"
                 required
               />
             </div>
@@ -408,32 +408,32 @@ export const Orders: React.FC = () => {
           {/* Line Items Builder */}
           <div>
             <div className="flex items-center justify-between mb-2">
-              <label className="text-xs font-bold text-slate-800 uppercase tracking-wider">
+              <label className="text-xs font-bold text-slate-300 uppercase tracking-wider">
                 Order Items & Product Selection
               </label>
               <button
                 type="button"
                 onClick={addItemRow}
-                className="flex items-center space-x-1 text-xs font-semibold text-blue-600 hover:text-blue-700"
+                className="flex items-center space-x-1 text-xs font-semibold text-indigo-400 hover:text-indigo-300 cursor-pointer"
               >
                 <Plus className="w-3.5 h-3.5" />
                 <span>Add Product</span>
               </button>
             </div>
 
-            <div className="border border-slate-200 rounded-xl overflow-hidden divide-y divide-slate-100 bg-slate-50/50">
+            <div className="border border-slate-800 rounded-xl overflow-hidden divide-y divide-slate-800 bg-slate-950/60">
               {orderItems.map((item, idx) => {
                 const maxStock = item.product?.qty_on_hand ?? 0;
                 const price = Number(item.product?.unit_price || 0);
                 const lineTotal = price * item.quantity;
 
                 return (
-                  <div key={idx} className="p-3 flex flex-wrap items-center justify-between gap-3 text-xs bg-white">
+                  <div key={idx} className="p-3 flex flex-wrap items-center justify-between gap-3 text-xs bg-slate-900/60">
                     <div className="flex-1 min-w-[200px]">
                       <select
                         value={item.product_id}
                         onChange={(e) => updateItemRowProduct(idx, Number(e.target.value))}
-                        className="w-full text-xs px-2.5 py-1.5 border border-slate-300 rounded-lg bg-white"
+                        className="w-full text-xs px-2.5 py-1.5 border border-slate-700 rounded-lg bg-slate-950 text-slate-100"
                       >
                         {products.map((p) => (
                           <option key={p.product_id} value={p.product_id}>
@@ -444,19 +444,19 @@ export const Orders: React.FC = () => {
                     </div>
 
                     <div className="flex items-center space-x-2">
-                      <span className="text-slate-500">Qty:</span>
+                      <span className="text-slate-400">Qty:</span>
                       <input
                         type="number"
                         min="1"
                         max={maxStock > 0 ? maxStock : undefined}
                         value={item.quantity}
                         onChange={(e) => updateItemRowQty(idx, parseInt(e.target.value, 10) || 1)}
-                        className="w-16 text-xs px-2 py-1 border border-slate-300 rounded-lg font-mono text-center"
+                        className="w-16 text-xs px-2 py-1 border border-slate-700 rounded-lg font-mono text-center bg-slate-950 text-slate-100"
                       />
                       <span className="text-[11px] text-slate-400">/ {maxStock} avail</span>
                     </div>
 
-                    <div className="w-24 text-right font-mono font-bold text-slate-900">
+                    <div className="w-24 text-right font-mono font-bold text-white">
                       ₹{lineTotal.toLocaleString()}
                     </div>
 
@@ -464,7 +464,7 @@ export const Orders: React.FC = () => {
                       type="button"
                       onClick={() => removeItemRow(idx)}
                       disabled={orderItems.length === 1}
-                      className="p-1 text-slate-400 hover:text-rose-600 disabled:opacity-30"
+                      className="p-1 text-slate-400 hover:text-rose-400 disabled:opacity-30 cursor-pointer"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>
@@ -475,19 +475,19 @@ export const Orders: React.FC = () => {
           </div>
 
           {/* Discount & Totals Breakdown */}
-          <div className="p-4 bg-slate-100/70 rounded-xl space-y-2 border border-slate-200 text-xs">
+          <div className="p-4 bg-slate-950/70 rounded-xl space-y-2 border border-slate-800 text-xs">
             <div className="flex items-center justify-between">
-              <span className="text-slate-600">Subtotal:</span>
-              <span className="font-mono font-bold text-slate-800">₹{subtotal.toLocaleString()}</span>
+              <span className="text-slate-400">Subtotal:</span>
+              <span className="font-mono font-bold text-white">₹{subtotal.toLocaleString()}</span>
             </div>
 
-            <div className="flex items-center justify-between pt-1 border-t border-slate-200/60">
+            <div className="flex items-center justify-between pt-1 border-t border-slate-800">
               <div className="flex items-center space-x-2">
-                <span className="text-slate-600">Apply Discount:</span>
+                <span className="text-slate-400">Apply Discount:</span>
                 <select
                   value={selectedDiscountId}
                   onChange={(e) => setSelectedDiscountId(e.target.value ? Number(e.target.value) : '')}
-                  className="text-xs px-2.5 py-1 border border-slate-300 rounded bg-white font-mono"
+                  className="text-xs px-2.5 py-1 border border-slate-700 rounded bg-slate-950 text-slate-100 font-mono"
                 >
                   <option value="">No Discount</option>
                   {discounts.map((d) => (
@@ -497,29 +497,29 @@ export const Orders: React.FC = () => {
                   ))}
                 </select>
               </div>
-              <span className="font-mono text-emerald-600 font-semibold">
+              <span className="font-mono text-emerald-400 font-semibold">
                 -₹{discountAmount.toLocaleString()}
               </span>
             </div>
 
-            <div className="flex items-center justify-between pt-2 border-t border-slate-200 text-sm font-bold text-slate-900">
+            <div className="flex items-center justify-between pt-2 border-t border-slate-800 text-sm font-bold text-white">
               <span>Final Order Total:</span>
-              <span className="text-base text-blue-700 font-mono">₹{totalAmount.toLocaleString()}</span>
+              <span className="text-base text-indigo-400 font-mono">₹{totalAmount.toLocaleString()}</span>
             </div>
           </div>
 
-          <div className="flex items-center justify-end space-x-2 pt-3 border-t border-slate-100">
+          <div className="flex items-center justify-end space-x-2 pt-3 border-t border-slate-800">
             <button
               type="button"
               onClick={() => setIsCreateOpen(false)}
-              className="px-4 py-2 text-xs font-medium text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors"
+              className="px-4 py-2 text-xs font-semibold text-slate-300 bg-slate-800 border border-slate-700 rounded-lg hover:bg-slate-700 hover:text-white transition cursor-pointer"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="px-4 py-2 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors disabled:opacity-50 flex items-center space-x-1.5"
+              className="px-4 py-2 text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg transition shadow-sm cursor-pointer disabled:opacity-50 flex items-center space-x-1.5"
             >
               <PackageCheck className="w-4 h-4" />
               <span>{isSubmitting ? 'Committing...' : 'Commit Order Transaction'}</span>
@@ -538,18 +538,18 @@ export const Orders: React.FC = () => {
       >
         <div className="space-y-5 text-xs">
           {/* Status & Quick Action Bar */}
-          <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl flex items-center justify-between gap-4">
+          <div className="p-4 bg-slate-950/70 border border-slate-800 rounded-xl flex items-center justify-between gap-4">
             <div className="flex items-center space-x-3">
-              <span className="text-slate-500 font-medium">Lifecycle Status:</span>
+              <span className="text-slate-400 font-medium">Lifecycle Status:</span>
               <StatusBadge status={viewingOrder?.status || 'PENDING'} />
             </div>
 
             <div className="flex items-center space-x-2">
-              <span className="text-slate-500">Update Status:</span>
+              <span className="text-slate-400">Update Status:</span>
               <select
                 value={viewingOrder?.status}
                 onChange={(e) => handleStatusChange(viewingOrder?.order_id, e.target.value)}
-                className="text-xs px-2.5 py-1 border border-slate-300 rounded-lg bg-white"
+                className="text-xs px-2.5 py-1 border border-slate-700 rounded-lg bg-slate-900 text-slate-100"
               >
                 <option value="PENDING">PENDING</option>
                 <option value="SHIPPED">SHIPPED</option>
@@ -561,10 +561,10 @@ export const Orders: React.FC = () => {
 
           {/* Line Items Table */}
           <div>
-            <h4 className="font-bold text-slate-800 uppercase tracking-wider mb-2">Order Line Items</h4>
-            <div className="border border-slate-200 rounded-xl overflow-hidden">
+            <h4 className="font-bold text-white uppercase tracking-wider mb-2">Order Line Items</h4>
+            <div className="border border-slate-800 rounded-xl overflow-hidden">
               <table className="w-full text-left">
-                <thead className="bg-slate-100 text-slate-600 font-semibold border-b border-slate-200">
+                <thead className="bg-slate-950 text-slate-400 font-semibold border-b border-slate-800">
                   <tr>
                     <th className="py-2.5 px-3">Product Name</th>
                     <th className="py-2.5 px-3">SKU</th>
@@ -573,16 +573,16 @@ export const Orders: React.FC = () => {
                     <th className="py-2.5 px-3 text-right">Line Total</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100">
+                <tbody className="divide-y divide-slate-800/60 text-slate-200">
                   {viewingOrder?.items?.map((item: any) => (
-                    <tr key={item.product_id}>
-                      <td className="py-2 px-3 font-semibold text-slate-800">{item.product_name}</td>
-                      <td className="py-2 px-3 font-mono text-slate-500">{item.sku || '—'}</td>
+                    <tr key={item.product_id} className="hover:bg-slate-800/40">
+                      <td className="py-2 px-3 font-semibold text-white">{item.product_name}</td>
+                      <td className="py-2 px-3 font-mono text-slate-400">{item.sku || '—'}</td>
                       <td className="py-2 px-3 text-center font-mono">{item.quantity}</td>
-                      <td className="py-2 px-3 text-right font-mono text-slate-600">
+                      <td className="py-2 px-3 text-right font-mono text-slate-300">
                         ₹{Number(item.unit_price).toLocaleString()}
                       </td>
-                      <td className="py-2 px-3 text-right font-mono font-bold text-slate-900">
+                      <td className="py-2 px-3 text-right font-mono font-bold text-white">
                         ₹{Number(item.line_total).toLocaleString()}
                       </td>
                     </tr>
@@ -594,37 +594,37 @@ export const Orders: React.FC = () => {
 
           {/* Payment & Delivery Summary */}
           <div className="grid grid-cols-2 gap-4">
-            <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
-              <h5 className="font-bold text-slate-800 flex items-center space-x-1.5">
-                <CreditCard className="w-4 h-4 text-emerald-600" />
+            <div className="p-4 bg-slate-950/70 border border-slate-800 rounded-xl space-y-2">
+              <h5 className="font-bold text-white flex items-center space-x-1.5">
+                <CreditCard className="w-4 h-4 text-emerald-400" />
                 <span>Payment Records</span>
               </h5>
               {viewingOrder?.payments?.length === 0 ? (
-                <p className="text-slate-400 italic">No payments recorded yet.</p>
+                <p className="text-slate-500 italic">No payments recorded yet.</p>
               ) : (
                 viewingOrder?.payments?.map((p: any) => (
-                  <div key={p.payment_id} className="flex items-center justify-between border-t border-slate-200/60 pt-1.5 font-mono">
-                    <span>{p.method} ({p.status})</span>
-                    <span className="font-bold">₹{Number(p.amount).toLocaleString()}</span>
+                  <div key={p.payment_id} className="flex items-center justify-between border-t border-slate-800/80 pt-1.5 font-mono">
+                    <span className="text-slate-300">{p.method} ({p.status})</span>
+                    <span className="font-bold text-white">₹{Number(p.amount).toLocaleString()}</span>
                   </div>
                 ))
               )}
             </div>
 
-            <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
-              <h5 className="font-bold text-slate-800 flex items-center space-x-1.5">
-                <Truck className="w-4 h-4 text-blue-600" />
+            <div className="p-4 bg-slate-950/70 border border-slate-800 rounded-xl space-y-2">
+              <h5 className="font-bold text-white flex items-center space-x-1.5">
+                <Truck className="w-4 h-4 text-indigo-400" />
                 <span>Logistics & Delivery</span>
               </h5>
               {viewingOrder?.delivery_id ? (
-                <div className="space-y-1">
-                  <p><span className="text-slate-500">Courier:</span> <strong>{viewingOrder.courier}</strong></p>
-                  <p><span className="text-slate-500">Tracking #:</span> <span className="font-mono">{viewingOrder.tracking_no}</span></p>
+                <div className="space-y-1 text-slate-300">
+                  <p><span className="text-slate-500">Courier:</span> <strong className="text-white">{viewingOrder.courier}</strong></p>
+                  <p><span className="text-slate-500">Tracking #:</span> <span className="font-mono text-indigo-300">{viewingOrder.tracking_no}</span></p>
                   <p><span className="text-slate-500">Shipped:</span> {viewingOrder.shipped_on?.split('T')[0] || 'Pending'}</p>
                   <p><span className="text-slate-500">Delivered:</span> {viewingOrder.delivered_on?.split('T')[0] || 'In transit'}</p>
                 </div>
               ) : (
-                <p className="text-slate-400 italic">No delivery shipment assigned yet.</p>
+                <p className="text-slate-500 italic">No delivery shipment assigned yet.</p>
               )}
             </div>
           </div>

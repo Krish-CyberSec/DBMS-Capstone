@@ -122,14 +122,14 @@ export const OrderItems: React.FC = () => {
       header: 'Order #',
       sortable: true,
       width: '80px',
-      render: (i) => <span className="font-mono text-blue-700 font-bold">#{i.order_id}</span>,
+      render: (i) => <span className="font-mono text-indigo-400 font-bold">#{i.order_id}</span>,
     },
     {
       key: 'product_name',
       header: 'Product Ordered',
       render: (i) => (
         <div>
-          <p className="font-semibold text-slate-900">{i.product_name}</p>
+          <p className="font-semibold text-white">{i.product_name}</p>
           <p className="text-[11px] font-mono text-slate-400">Prod ID: #{i.product_id}</p>
         </div>
       ),
@@ -137,13 +137,13 @@ export const OrderItems: React.FC = () => {
     {
       key: 'customer_name',
       header: 'Customer',
-      render: (i) => <span className="text-slate-700">{(i as any).customer_name}</span>,
+      render: (i) => <span className="text-slate-300">{(i as any).customer_name}</span>,
     },
     {
       key: 'quantity',
       header: 'Quantity',
       render: (i) => (
-        <span className="font-mono font-bold text-slate-800 bg-slate-100 px-2 py-0.5 rounded">
+        <span className="font-mono font-bold text-slate-200 bg-slate-800 px-2.5 py-0.5 rounded border border-slate-700">
           {i.quantity}
         </span>
       ),
@@ -152,7 +152,7 @@ export const OrderItems: React.FC = () => {
       key: 'unit_price',
       header: 'Historical Unit Price',
       render: (i) => (
-        <span className="font-mono text-slate-700 font-medium">
+        <span className="font-mono text-slate-300 font-medium">
           ₹{Number(i.unit_price).toLocaleString()}
         </span>
       ),
@@ -161,7 +161,7 @@ export const OrderItems: React.FC = () => {
       key: 'line_total',
       header: 'Line Total',
       render: (i) => (
-        <span className="font-mono font-bold text-slate-900">
+        <span className="font-mono font-bold text-white">
           ₹{(Number(i.unit_price) * i.quantity).toLocaleString()}
         </span>
       ),
@@ -171,25 +171,25 @@ export const OrderItems: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Filters Bar */}
-      <div className="bg-white p-3.5 rounded-xl border border-slate-200/80 shadow-xs flex flex-wrap items-center justify-between gap-4">
+      <div className="bg-slate-900/80 p-3.5 rounded-xl border border-slate-800/80 shadow-xs flex flex-wrap items-center justify-between gap-4">
         <div className="flex flex-wrap items-center gap-3">
           <div className="flex items-center space-x-1.5 text-xs">
-            <span className="text-slate-500 font-medium">Filter Order ID:</span>
+            <span className="text-slate-400 font-medium">Filter Order ID:</span>
             <input
               type="number"
               value={orderFilter}
               onChange={(e) => setOrderFilter(e.target.value)}
               placeholder="e.g. 1"
-              className="w-24 text-xs px-2.5 py-1 border border-slate-300 rounded-lg bg-slate-50 font-mono"
+              className="w-24 text-xs px-2.5 py-1 border border-slate-700 rounded-lg bg-slate-950 text-slate-100 font-mono"
             />
           </div>
 
           <div className="flex items-center space-x-1.5 text-xs">
-            <span className="text-slate-500 font-medium">Filter Product:</span>
+            <span className="text-slate-400 font-medium">Filter Product:</span>
             <select
               value={productFilter}
               onChange={(e) => setProductFilter(e.target.value)}
-              className="text-xs px-2.5 py-1 border border-slate-300 rounded-lg bg-slate-50"
+              className="text-xs px-2.5 py-1 border border-slate-700 rounded-lg bg-slate-950 text-slate-100"
             >
               <option value="">All Products</option>
               {products.map((p) => (
@@ -219,14 +219,14 @@ export const OrderItems: React.FC = () => {
           <div className="flex items-center justify-end space-x-1">
             <button
               onClick={() => openEditModal(i)}
-              className="p-1.5 text-slate-400 hover:text-amber-600 hover:bg-amber-50 rounded transition-colors"
+              className="p-1.5 text-slate-400 hover:text-amber-400 hover:bg-slate-800 rounded transition-colors"
               title="Edit Quantity"
             >
               <Edit2 className="w-4 h-4" />
             </button>
             <button
               onClick={() => setDeletingItem(i)}
-              className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded transition-colors"
+              className="p-1.5 text-slate-400 hover:text-rose-400 hover:bg-slate-800 rounded transition-colors"
               title="Remove Item"
             >
               <Trash2 className="w-4 h-4" />
@@ -244,31 +244,31 @@ export const OrderItems: React.FC = () => {
       >
         <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-4">
           {serverError && (
-            <div className="p-3 text-xs bg-rose-50 border border-rose-200 rounded-lg text-rose-700 font-medium">
+            <div className="p-3 text-xs bg-rose-500/10 border border-rose-500/30 rounded-lg text-rose-400 font-medium">
               {serverError}
             </div>
           )}
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">Order ID *</label>
+              <label className="block text-xs font-semibold text-slate-300 mb-1">Order ID *</label>
               <input
                 type="number"
                 disabled={!!editingItem}
                 {...register('order_id')}
-                className="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg bg-white disabled:bg-slate-100 font-mono"
+                className="w-full text-xs px-3 py-2 border border-slate-700 rounded-lg bg-slate-950 text-slate-100 disabled:bg-slate-900 disabled:text-slate-500 font-mono"
               />
               {errors.order_id && (
-                <p className="text-[11px] text-rose-600 mt-1">{errors.order_id.message}</p>
+                <p className="text-[11px] text-rose-400 mt-1">{errors.order_id.message}</p>
               )}
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">Product *</label>
+              <label className="block text-xs font-semibold text-slate-300 mb-1">Product *</label>
               <select
                 disabled={!!editingItem}
                 {...register('product_id')}
-                className="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg bg-white disabled:bg-slate-100"
+                className="w-full text-xs px-3 py-2 border border-slate-700 rounded-lg bg-slate-950 text-slate-100 disabled:bg-slate-900 disabled:text-slate-500"
               >
                 {products.map((p) => (
                   <option key={p.product_id} value={p.product_id}>
@@ -277,40 +277,40 @@ export const OrderItems: React.FC = () => {
                 ))}
               </select>
               {errors.product_id && (
-                <p className="text-[11px] text-rose-600 mt-1">{errors.product_id.message}</p>
+                <p className="text-[11px] text-rose-400 mt-1">{errors.product_id.message}</p>
               )}
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">
+            <label className="block text-xs font-semibold text-slate-300 mb-1">
               Quantity * <span className="font-normal text-slate-400">— Must be &gt; 0 (Test 3)</span>
             </label>
             <input
               type="number"
               {...register('quantity')}
-              className="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg font-mono"
+              className="w-full text-xs px-3 py-2 border border-slate-700 rounded-lg bg-slate-950 text-slate-100 font-mono"
             />
             {errors.quantity && (
-              <p className="text-[11px] text-rose-600 mt-1">{errors.quantity.message}</p>
+              <p className="text-[11px] text-rose-400 mt-1">{errors.quantity.message}</p>
             )}
             <p className="text-[11px] text-slate-400 mt-1">
               Test 3 Demonstration: Try entering 0 to verify the database constraint rejection.
             </p>
           </div>
 
-          <div className="flex items-center justify-end space-x-2 pt-4 border-t border-slate-100">
+          <div className="flex items-center justify-end space-x-2 pt-4 border-t border-slate-800">
             <button
               type="button"
               onClick={() => setIsFormOpen(false)}
-              className="px-4 py-2 text-xs font-medium text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50"
+              className="px-4 py-2 text-xs font-semibold text-slate-300 bg-slate-800 border border-slate-700 rounded-lg hover:bg-slate-700 hover:text-white transition cursor-pointer"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="px-4 py-2 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-lg disabled:opacity-50"
+              className="px-4 py-2 text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg transition shadow-sm cursor-pointer disabled:opacity-50"
             >
               {isSubmitting ? 'Saving...' : editingItem ? 'Update Quantity' : 'Add Item'}
             </button>

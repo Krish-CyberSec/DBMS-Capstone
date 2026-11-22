@@ -156,7 +156,7 @@ export const Products: React.FC = () => {
       header: 'ID',
       sortable: true,
       width: '60px',
-      render: (p) => <span className="font-mono text-slate-500 font-semibold">{p.product_id}</span>,
+      render: (p) => <span className="font-mono text-indigo-400 font-semibold">{p.product_id}</span>,
     },
     {
       key: 'product_name',
@@ -164,7 +164,7 @@ export const Products: React.FC = () => {
       sortable: true,
       render: (p) => (
         <div>
-          <p className="font-semibold text-slate-900">{p.product_name}</p>
+          <p className="font-semibold text-white">{p.product_name}</p>
         </div>
       ),
     },
@@ -173,7 +173,7 @@ export const Products: React.FC = () => {
       header: 'SKU Code',
       sortable: true,
       render: (p) => (
-        <span className="font-mono text-[11px] px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">
+        <span className="font-mono text-[11px] px-2 py-0.5 rounded bg-slate-950 text-indigo-300 border border-slate-700">
           {p.sku || '—'}
         </span>
       ),
@@ -183,8 +183,8 @@ export const Products: React.FC = () => {
       header: 'Category',
       sortable: true,
       render: (p) => (
-        <span className="inline-flex items-center text-slate-600">
-          <Tag className="w-3 h-3 text-blue-500 mr-1.5" />
+        <span className="inline-flex items-center text-slate-300">
+          <Tag className="w-3 h-3 text-indigo-400 mr-1.5" />
           {p.category_name}
         </span>
       ),
@@ -194,7 +194,7 @@ export const Products: React.FC = () => {
       header: 'Unit Price',
       sortable: true,
       render: (p) => (
-        <span className="font-mono font-bold text-slate-900">
+        <span className="font-mono font-bold text-white">
           ₹{Number(p.unit_price).toLocaleString()}
         </span>
       ),
@@ -209,11 +209,11 @@ export const Products: React.FC = () => {
         const isLow = qty <= reorder;
         return (
           <div className="flex items-center space-x-2">
-            <span className="font-mono font-semibold text-slate-800">{qty} units</span>
+            <span className="font-mono font-semibold text-slate-200">{qty} units</span>
             {isLow ? (
               <StatusBadge status="LOW STOCK" type="stock" />
             ) : (
-              <span className="text-[11px] text-emerald-600 font-medium">In Stock</span>
+              <span className="text-[11px] text-emerald-400 font-medium">In Stock</span>
             )}
           </div>
         );
@@ -224,13 +224,13 @@ export const Products: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Category Filter Bar */}
-      <div className="bg-white p-3.5 rounded-xl border border-slate-200/80 shadow-xs flex items-center justify-between gap-4">
+      <div className="bg-slate-900/80 p-3.5 rounded-xl border border-slate-800/80 shadow-xs flex items-center justify-between gap-4">
         <div className="flex items-center space-x-2">
-          <span className="text-xs font-semibold text-slate-600">Filter Category:</span>
+          <span className="text-xs font-semibold text-slate-300">Filter Category:</span>
           <select
             value={selectedCategory || ''}
             onChange={(e) => setSelectedCategory(e.target.value ? Number(e.target.value) : undefined)}
-            className="text-xs py-1.5 px-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 bg-slate-50"
+            className="text-xs py-1.5 px-3 border border-slate-700 rounded-lg focus:ring-1 focus:ring-indigo-500 bg-slate-950 text-slate-100"
           >
             <option value="">All Categories</option>
             {categories.map((c) => (
@@ -265,14 +265,14 @@ export const Products: React.FC = () => {
           <div className="flex items-center justify-end space-x-1">
             <button
               onClick={() => openEditModal(p)}
-              className="p-1.5 text-slate-400 hover:text-amber-600 hover:bg-amber-50 rounded transition-colors"
+              className="p-1.5 text-slate-400 hover:text-amber-400 hover:bg-slate-800 rounded transition-colors"
               title="Edit Product"
             >
               <Edit2 className="w-4 h-4" />
             </button>
             <button
               onClick={() => setDeletingProduct(p)}
-              className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded transition-colors"
+              className="p-1.5 text-slate-400 hover:text-rose-400 hover:bg-slate-800 rounded transition-colors"
               title="Delete Product"
             >
               <Trash2 className="w-4 h-4" />
@@ -290,41 +290,41 @@ export const Products: React.FC = () => {
       >
         <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-4">
           {serverError && (
-            <div className="p-3 text-xs bg-rose-50 border border-rose-200 rounded-lg text-rose-700 font-medium">
+            <div className="p-3 text-xs bg-rose-500/10 border border-rose-500/30 rounded-lg text-rose-400 font-medium">
               {serverError}
             </div>
           )}
 
           <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">Product Name *</label>
+            <label className="block text-xs font-semibold text-slate-300 mb-1">Product Name *</label>
             <input
               type="text"
               {...register('product_name')}
               placeholder="e.g. Mechanical Keyboard"
-              className="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              className="w-full text-xs px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-slate-100 placeholder-slate-500 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none"
             />
             {errors.product_name && (
-              <p className="text-[11px] text-rose-600 mt-1">{errors.product_name.message}</p>
+              <p className="text-[11px] text-rose-400 mt-1">{errors.product_name.message}</p>
             )}
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">SKU Code (Unique)</label>
+              <label className="block text-xs font-semibold text-slate-300 mb-1">SKU Code (Unique)</label>
               <input
                 type="text"
                 {...register('sku')}
                 placeholder="e.g. EL-005"
-                className="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none font-mono"
+                className="w-full text-xs px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-slate-100 placeholder-slate-500 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none font-mono"
               />
-              {errors.sku && <p className="text-[11px] text-rose-600 mt-1">{errors.sku.message}</p>}
+              {errors.sku && <p className="text-[11px] text-rose-400 mt-1">{errors.sku.message}</p>}
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">Category *</label>
+              <label className="block text-xs font-semibold text-slate-300 mb-1">Category *</label>
               <select
                 {...register('category_id')}
-                className="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white"
+                className="w-full text-xs px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-slate-100 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none"
               >
                 {categories.map((c) => (
                   <option key={c.category_id} value={c.category_id}>
@@ -333,13 +333,13 @@ export const Products: React.FC = () => {
                 ))}
               </select>
               {errors.category_id && (
-                <p className="text-[11px] text-rose-600 mt-1">{errors.category_id.message}</p>
+                <p className="text-[11px] text-rose-400 mt-1">{errors.category_id.message}</p>
               )}
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">
+            <label className="block text-xs font-semibold text-slate-300 mb-1">
               Unit Price (₹) * <span className="font-normal text-slate-400">— Must be &gt; 0</span>
             </label>
             <input
@@ -347,48 +347,48 @@ export const Products: React.FC = () => {
               step="0.01"
               {...register('unit_price')}
               placeholder="e.g. 1200.00"
-              className="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none font-mono"
+              className="w-full text-xs px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-slate-100 placeholder-slate-500 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none font-mono"
             />
             {errors.unit_price && (
-              <p className="text-[11px] text-rose-600 mt-1">{errors.unit_price.message}</p>
+              <p className="text-[11px] text-rose-400 mt-1">{errors.unit_price.message}</p>
             )}
           </div>
 
           {!editingProduct && (
-            <div className="grid grid-cols-2 gap-3 p-3 bg-slate-50 rounded-xl border border-slate-200">
+            <div className="grid grid-cols-2 gap-3 p-3 bg-slate-950/60 rounded-xl border border-slate-800">
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">Initial Stock (Qty)</label>
+                <label className="block text-xs font-semibold text-slate-300 mb-1">Initial Stock (Qty)</label>
                 <input
                   type="number"
                   {...register('initial_stock')}
                   defaultValue={50}
-                  className="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none font-mono"
+                  className="w-full text-xs px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-slate-100 focus:ring-1 focus:ring-indigo-500 font-mono"
                 />
               </div>
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">Reorder Level</label>
+                <label className="block text-xs font-semibold text-slate-300 mb-1">Reorder Level</label>
                 <input
                   type="number"
                   {...register('reorder_level')}
                   defaultValue={10}
-                  className="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none font-mono"
+                  className="w-full text-xs px-3 py-2 bg-slate-950 border border-slate-700 rounded-lg text-slate-100 focus:ring-1 focus:ring-indigo-500 font-mono"
                 />
               </div>
             </div>
           )}
 
-          <div className="flex items-center justify-end space-x-2 pt-4 border-t border-slate-100">
+          <div className="flex items-center justify-end space-x-2 pt-4 border-t border-slate-800">
             <button
               type="button"
               onClick={() => setIsFormOpen(false)}
-              className="px-4 py-2 text-xs font-medium text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors"
+              className="px-4 py-2 text-xs font-semibold text-slate-300 bg-slate-800 border border-slate-700 rounded-lg hover:bg-slate-700 hover:text-white transition cursor-pointer"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="px-4 py-2 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors disabled:opacity-50"
+              className="px-4 py-2 text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg transition shadow-sm cursor-pointer disabled:opacity-50"
             >
               {isSubmitting ? 'Saving...' : editingProduct ? 'Update Product' : 'Create Product'}
             </button>

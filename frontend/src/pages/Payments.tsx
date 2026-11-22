@@ -136,25 +136,25 @@ export const Payments: React.FC = () => {
       header: 'Pay #',
       sortable: true,
       width: '70px',
-      render: (p) => <span className="font-mono text-slate-500 font-bold">#{p.payment_id}</span>,
+      render: (p) => <span className="font-mono text-indigo-400 font-bold">#{p.payment_id}</span>,
     },
     {
       key: 'order_id',
       header: 'Order #',
       sortable: true,
-      render: (p) => <span className="font-mono font-bold text-blue-700">Order #{p.order_id}</span>,
+      render: (p) => <span className="font-mono font-bold text-indigo-400">Order #{p.order_id}</span>,
     },
     {
       key: 'customer_name',
       header: 'Customer',
-      render: (p) => <span className="font-semibold text-slate-900">{p.customer_name}</span>,
+      render: (p) => <span className="font-semibold text-white">{p.customer_name}</span>,
     },
     {
       key: 'method',
       header: 'Method',
       sortable: true,
       render: (p) => (
-        <span className="font-mono font-semibold text-xs px-2.5 py-0.5 rounded bg-slate-100 text-slate-800 border border-slate-200">
+        <span className="font-mono font-semibold text-xs px-2.5 py-0.5 rounded bg-slate-950 text-indigo-300 border border-slate-700">
           {p.method}
         </span>
       ),
@@ -164,7 +164,7 @@ export const Payments: React.FC = () => {
       header: 'Amount Paid',
       sortable: true,
       render: (p) => (
-        <span className="font-mono font-bold text-slate-900">
+        <span className="font-mono font-bold text-white">
           ₹{Number(p.amount).toLocaleString()}
         </span>
       ),
@@ -180,7 +180,7 @@ export const Payments: React.FC = () => {
       header: 'Transaction Date',
       sortable: true,
       render: (p) => (
-        <span className="font-mono text-xs text-slate-500">
+        <span className="font-mono text-xs text-slate-300">
           {p.paid_on ? p.paid_on.split('T')[0] : '—'}
         </span>
       ),
@@ -190,14 +190,14 @@ export const Payments: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Method & Status Filters */}
-      <div className="bg-white p-3.5 rounded-xl border border-slate-200/80 shadow-xs flex flex-wrap items-center justify-between gap-4">
+      <div className="bg-slate-900/80 p-3.5 rounded-xl border border-slate-800/80 shadow-xs flex flex-wrap items-center justify-between gap-4">
         <div className="flex flex-wrap items-center gap-3">
           <div className="flex items-center space-x-1.5 text-xs">
-            <span className="text-slate-500 font-medium">Method:</span>
+            <span className="text-slate-400 font-medium">Method:</span>
             <select
               value={methodFilter}
               onChange={(e) => setMethodFilter(e.target.value)}
-              className="text-xs px-2.5 py-1 border border-slate-300 rounded-lg bg-slate-50"
+              className="text-xs px-2.5 py-1 border border-slate-700 rounded-lg bg-slate-950 text-slate-100"
             >
               <option value="">All Methods</option>
               <option value="UPI">UPI</option>
@@ -208,11 +208,11 @@ export const Payments: React.FC = () => {
           </div>
 
           <div className="flex items-center space-x-1.5 text-xs">
-            <span className="text-slate-500 font-medium">Status:</span>
+            <span className="text-slate-400 font-medium">Status:</span>
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="text-xs px-2.5 py-1 border border-slate-300 rounded-lg bg-slate-50"
+              className="text-xs px-2.5 py-1 border border-slate-700 rounded-lg bg-slate-950 text-slate-100"
             >
               <option value="">All Statuses</option>
               <option value="SUCCESS">SUCCESS</option>
@@ -245,14 +245,14 @@ export const Payments: React.FC = () => {
           <div className="flex items-center justify-end space-x-1">
             <button
               onClick={() => openEditModal(p)}
-              className="p-1.5 text-slate-400 hover:text-amber-600 hover:bg-amber-50 rounded transition-colors"
+              className="p-1.5 text-slate-400 hover:text-amber-400 hover:bg-slate-800 rounded transition-colors"
               title="Edit Payment"
             >
               <Edit2 className="w-4 h-4" />
             </button>
             <button
               onClick={() => setDeletingPayment(p)}
-              className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded transition-colors"
+              className="p-1.5 text-slate-400 hover:text-rose-400 hover:bg-slate-800 rounded transition-colors"
               title="Delete Payment"
             >
               <Trash2 className="w-4 h-4" />
@@ -270,30 +270,30 @@ export const Payments: React.FC = () => {
       >
         <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-4">
           {serverError && (
-            <div className="p-3 text-xs bg-rose-50 border border-rose-200 rounded-lg text-rose-700 font-medium">
+            <div className="p-3 text-xs bg-rose-500/10 border border-rose-500/30 rounded-lg text-rose-400 font-medium">
               {serverError}
             </div>
           )}
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">Order ID *</label>
+              <label className="block text-xs font-semibold text-slate-300 mb-1">Order ID *</label>
               <input
                 type="number"
                 {...register('order_id')}
                 placeholder="e.g. 3"
-                className="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg font-mono"
+                className="w-full text-xs px-3 py-2 border border-slate-700 rounded-lg bg-slate-950 text-slate-100 font-mono"
               />
               {errors.order_id && (
-                <p className="text-[11px] text-rose-600 mt-1">{errors.order_id.message}</p>
+                <p className="text-[11px] text-rose-400 mt-1">{errors.order_id.message}</p>
               )}
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">Payment Method *</label>
+              <label className="block text-xs font-semibold text-slate-300 mb-1">Payment Method *</label>
               <select
                 {...register('method')}
-                className="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg bg-white"
+                className="w-full text-xs px-3 py-2 border border-slate-700 rounded-lg bg-slate-950 text-slate-100"
               >
                 <option value="UPI">UPI</option>
                 <option value="CARD">CARD</option>
@@ -305,7 +305,7 @@ export const Payments: React.FC = () => {
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">
+              <label className="block text-xs font-semibold text-slate-300 mb-1">
                 Amount (₹) * <span className="font-normal text-slate-400">— &gt; 0</span>
               </label>
               <input
@@ -313,18 +313,18 @@ export const Payments: React.FC = () => {
                 step="0.01"
                 {...register('amount')}
                 placeholder="1200.00"
-                className="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg font-mono"
+                className="w-full text-xs px-3 py-2 border border-slate-700 rounded-lg bg-slate-950 text-slate-100 font-mono"
               />
               {errors.amount && (
-                <p className="text-[11px] text-rose-600 mt-1">{errors.amount.message}</p>
+                <p className="text-[11px] text-rose-400 mt-1">{errors.amount.message}</p>
               )}
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">Payment Status *</label>
+              <label className="block text-xs font-semibold text-slate-300 mb-1">Payment Status *</label>
               <select
                 {...register('status')}
-                className="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg bg-white"
+                className="w-full text-xs px-3 py-2 border border-slate-700 rounded-lg bg-slate-950 text-slate-100"
               >
                 <option value="SUCCESS">SUCCESS</option>
                 <option value="FAILED">FAILED</option>
@@ -334,29 +334,29 @@ export const Payments: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">Transaction Date *</label>
+            <label className="block text-xs font-semibold text-slate-300 mb-1">Transaction Date *</label>
             <input
               type="date"
               {...register('paid_on')}
-              className="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg font-mono"
+              className="w-full text-xs px-3 py-2 border border-slate-700 rounded-lg bg-slate-950 text-slate-100 font-mono"
             />
             {errors.paid_on && (
-              <p className="text-[11px] text-rose-600 mt-1">{errors.paid_on.message}</p>
+              <p className="text-[11px] text-rose-400 mt-1">{errors.paid_on.message}</p>
             )}
           </div>
 
-          <div className="flex items-center justify-end space-x-2 pt-4 border-t border-slate-100">
+          <div className="flex items-center justify-end space-x-2 pt-4 border-t border-slate-800">
             <button
               type="button"
               onClick={() => setIsFormOpen(false)}
-              className="px-4 py-2 text-xs font-medium text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50"
+              className="px-4 py-2 text-xs font-semibold text-slate-300 bg-slate-800 border border-slate-700 rounded-lg hover:bg-slate-700 hover:text-white transition cursor-pointer"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="px-4 py-2 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-lg disabled:opacity-50"
+              className="px-4 py-2 text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg transition shadow-sm cursor-pointer disabled:opacity-50"
             >
               {isSubmitting ? 'Saving...' : editingPayment ? 'Update Payment' : 'Record Payment'}
             </button>
