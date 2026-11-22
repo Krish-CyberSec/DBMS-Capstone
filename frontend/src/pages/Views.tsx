@@ -130,20 +130,20 @@ export default function Views() {
       </div>
 
       {/* View Switcher Tabs */}
-      <div className="flex border-b border-slate-700/60 gap-4">
+      <div className="flex border-b border-slate-700/60 gap-2 sm:gap-4 overflow-x-auto pb-1">
         {viewsMeta.map((v) => (
           <button
             key={v.name}
             onClick={() => setSelectedViewName(v.name)}
-            className={`pb-3 px-2 text-sm font-semibold border-b-2 transition flex items-center gap-2 cursor-pointer ${
+            className={`pb-2.5 px-2 text-xs sm:text-sm font-semibold border-b-2 transition flex items-center gap-1.5 sm:gap-2 cursor-pointer shrink-0 ${
               selectedViewName === v.name
                 ? 'border-indigo-500 text-indigo-400'
                 : 'border-transparent text-slate-400 hover:text-slate-200'
             }`}
           >
-            <Table className="w-4 h-4" />
+            <Table className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
             <span>{v.name}</span>
-            <span className="text-[11px] font-normal text-slate-500">({v.title})</span>
+            <span className="text-[10px] sm:text-[11px] font-normal text-slate-500 hidden sm:inline">({v.title})</span>
           </button>
         ))}
       </div>

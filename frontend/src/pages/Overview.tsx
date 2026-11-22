@@ -59,12 +59,12 @@ export const Overview: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Top Banner */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-gradient-to-r from-slate-900 to-blue-950 p-6 rounded-2xl text-white shadow-md">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-gradient-to-r from-slate-900 to-blue-950 p-4 sm:p-6 rounded-xl sm:rounded-2xl text-white shadow-md">
         <div>
           <span className="px-2.5 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-semibold uppercase tracking-wider">
             Live MySQL 8.4 Database Analytics
           </span>
-          <h1 className="text-xl sm:text-2xl font-bold mt-2 tracking-tight">
+          <h1 className="text-lg sm:text-2xl font-bold mt-2 tracking-tight">
             E-Commerce Order & Customer Analytics Dashboard
           </h1>
           <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-2xl leading-relaxed">
@@ -76,7 +76,7 @@ export const Overview: React.FC = () => {
         <button
           onClick={fetchDashboardData}
           disabled={isLoading}
-          className="flex items-center space-x-2 px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded-xl text-xs font-semibold shadow-md transition-all self-start sm:self-auto disabled:opacity-50"
+          className="flex items-center space-x-2 px-3.5 sm:px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded-xl text-xs font-semibold shadow-md transition-all self-start sm:self-auto disabled:opacity-50 cursor-pointer"
         >
           <RefreshCw className={`w-4 h-4 ${isLoading ? 'animate-spin' : ''}`} />
           <span>Refresh Data</span>
@@ -84,7 +84,7 @@ export const Overview: React.FC = () => {
       </div>
 
       {/* KPI Cards Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3 sm:gap-4">
         <StatCard
           title="Total Customers"
           value={kpi?.totalCustomers ?? '—'}
@@ -123,7 +123,7 @@ export const Overview: React.FC = () => {
       </div>
 
       {/* Secondary Status Counters */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
         <div className="bg-white p-4 rounded-xl border border-slate-200/80 shadow-xs flex items-center space-x-3">
           <div className="p-2.5 bg-amber-50 rounded-lg text-amber-600 border border-amber-100">
             <Clock className="w-4 h-4" />

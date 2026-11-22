@@ -89,10 +89,10 @@ export default function SqlConcepts() {
       </div>
 
       {/* Tabs */}
-      <div className="flex border-b border-slate-700/60 gap-4">
+      <div className="flex border-b border-slate-700/60 gap-2 sm:gap-4 overflow-x-auto pb-1">
         <button
           onClick={() => setActiveTab('DDL')}
-          className={`pb-3 px-3 text-sm font-semibold border-b-2 transition flex items-center gap-2 cursor-pointer ${
+          className={`pb-2.5 sm:pb-3 px-2 sm:px-3 text-xs sm:text-sm font-semibold border-b-2 transition flex items-center gap-1.5 sm:gap-2 cursor-pointer shrink-0 ${
             activeTab === 'DDL'
               ? 'border-indigo-500 text-indigo-400'
               : 'border-transparent text-slate-400 hover:text-slate-200'
@@ -104,7 +104,7 @@ export default function SqlConcepts() {
 
         <button
           onClick={() => setActiveTab('DML')}
-          className={`pb-3 px-3 text-sm font-semibold border-b-2 transition flex items-center gap-2 cursor-pointer ${
+          className={`pb-2.5 sm:pb-3 px-2 sm:px-3 text-xs sm:text-sm font-semibold border-b-2 transition flex items-center gap-1.5 sm:gap-2 cursor-pointer shrink-0 ${
             activeTab === 'DML'
               ? 'border-indigo-500 text-indigo-400'
               : 'border-transparent text-slate-400 hover:text-slate-200'
@@ -116,7 +116,7 @@ export default function SqlConcepts() {
 
         <button
           onClick={() => setActiveTab('DCL')}
-          className={`pb-3 px-3 text-sm font-semibold border-b-2 transition flex items-center gap-2 cursor-pointer ${
+          className={`pb-2.5 sm:pb-3 px-2 sm:px-3 text-xs sm:text-sm font-semibold border-b-2 transition flex items-center gap-1.5 sm:gap-2 cursor-pointer shrink-0 ${
             activeTab === 'DCL'
               ? 'border-indigo-500 text-indigo-400'
               : 'border-transparent text-slate-400 hover:text-slate-200'

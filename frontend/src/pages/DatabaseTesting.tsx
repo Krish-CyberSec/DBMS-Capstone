@@ -72,7 +72,7 @@ export default function DatabaseTesting() {
       </div>
 
       {/* Summary Scorecard */}
-      <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
         <div className="bg-slate-800/80 border border-slate-700/60 rounded-xl p-4">
           <div className="text-xs font-semibold uppercase tracking-wider text-slate-400">Total Constraint Tests</div>
           <div className="text-2xl font-bold text-white mt-1">{totalCount}</div>

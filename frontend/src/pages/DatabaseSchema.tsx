@@ -250,11 +250,15 @@ export default function DatabaseSchema() {
       >
         {selectedTable && (
           <div className="space-y-4">
-            <div className="flex items-center justify-between p-3 bg-slate-900 rounded-lg border border-slate-800 text-xs">
-              <span className="text-slate-400">Database Table:</span>
-              <span className="font-mono font-bold text-white">shop.{selectedTable.name}</span>
-              <span className="text-slate-400">Total Attributes:</span>
-              <span className="font-mono font-semibold text-emerald-400">{selectedTable.columns.length} columns</span>
+            <div className="flex flex-wrap items-center justify-between gap-2 p-3 bg-slate-900 rounded-lg border border-slate-800 text-xs">
+              <div className="flex items-center gap-1.5">
+                <span className="text-slate-400">Table:</span>
+                <span className="font-mono font-bold text-white">shop.{selectedTable.name}</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <span className="text-slate-400">Attributes:</span>
+                <span className="font-mono font-semibold text-emerald-400">{selectedTable.columns.length} columns</span>
+              </div>
             </div>
 
             {/* Column Attributes Table */}
@@ -296,7 +300,7 @@ export default function DatabaseSchema() {
                   {selectedTable.foreignKeys.map((fk, idx) => (
                     <div
                       key={idx}
-                      className="p-2.5 bg-slate-900/60 border border-slate-800 rounded-lg text-xs flex items-center justify-between font-mono"
+                      className="p-2.5 bg-slate-900/60 border border-slate-800 rounded-lg text-xs flex flex-wrap items-center justify-between gap-2 font-mono"
                     >
                       <span className="text-indigo-300 font-semibold">{fk.column}</span>
                       <ArrowRight className="w-3.5 h-3.5 text-slate-500" />

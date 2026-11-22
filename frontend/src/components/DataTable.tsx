@@ -72,22 +72,22 @@ export function DataTable<T extends Record<string, any>>({
     <div className="bg-slate-800/80 rounded-xl border border-slate-700/60 shadow-sm overflow-hidden">
       {/* Top Header Bar (if title or search or add is provided) */}
       {(title || onSearchChange || onRefresh || onAdd) && (
-        <div className="p-4 border-b border-slate-700/60 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-900/60">
+        <div className="p-3.5 sm:p-4 border-b border-slate-700/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 bg-slate-900/60">
           <div>
             {title && <h2 className="text-base font-bold text-white tracking-tight">{title}</h2>}
             {subtitle && <p className="text-xs text-slate-400 mt-0.5">{subtitle}</p>}
           </div>
 
-          <div className="flex flex-wrap items-center gap-2.5">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
             {onSearchChange && (
-              <div className="relative">
+              <div className="relative flex-1 sm:flex-initial min-w-[180px]">
                 <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-slate-400" />
                 <input
                   type="text"
                   value={searchValue}
                   onChange={(e) => onSearchChange(e.target.value)}
                   placeholder="Search records..."
-                  className="pl-8 pr-3 py-1.5 text-xs bg-slate-900 border border-slate-700 rounded-lg text-slate-200 focus:outline-none focus:ring-1 focus:ring-indigo-500 w-48 sm:w-60 transition"
+                  className="pl-8 pr-3 py-1.5 text-xs bg-slate-900 border border-slate-700 rounded-lg text-slate-200 focus:outline-none focus:ring-1 focus:ring-indigo-500 w-full sm:w-60 transition"
                 />
               </div>
             )}
@@ -95,7 +95,7 @@ export function DataTable<T extends Record<string, any>>({
             {onRefresh && (
               <button
                 onClick={onRefresh}
-                className="p-1.5 text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg transition"
+                className="p-1.5 text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg transition cursor-pointer"
                 title="Refresh Records"
               >
                 <RefreshCw className={`w-3.5 h-3.5 ${isTableLoading ? 'animate-spin text-indigo-400' : ''}`} />
@@ -105,7 +105,7 @@ export function DataTable<T extends Record<string, any>>({
             {onAdd && (
               <button
                 onClick={onAdd}
-                className="flex items-center space-x-1.5 px-3 py-1.5 text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg transition shadow-sm cursor-pointer"
+                className="flex items-center space-x-1.5 px-3 py-1.5 text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg transition shadow-sm cursor-pointer whitespace-nowrap"
               >
                 <Plus className="w-3.5 h-3.5" />
                 <span>{addLabel}</span>
@@ -117,7 +117,7 @@ export function DataTable<T extends Record<string, any>>({
 
       {/* Table Container */}
       <div className="overflow-x-auto">
-        <table className="w-full text-left text-xs border-collapse">
+        <table className="w-full text-left text-xs border-collapse min-w-[600px]">
           <thead className="bg-slate-900/80 border-b border-slate-700/60 text-slate-400 uppercase tracking-wider font-semibold">
             <tr>
               {columns.map((col, idx) => {
@@ -195,7 +195,7 @@ export function DataTable<T extends Record<string, any>>({
       {/* Pagination Footer */}
       {pagination && (
         <div className="p-3 border-t border-slate-700/60 bg-slate-900/60 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400">
-          <div>
+          <div className="text-center sm:text-left">
             Showing{' '}
             <span className="font-semibold text-slate-200">
               {data.length === 0 ? 0 : (pagination.page - 1) * pagination.limit + 1}

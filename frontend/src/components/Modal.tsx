@@ -55,12 +55,12 @@ export const Modal: React.FC<ModalProps> = ({
         onClick={onClose}
       />
 
-      <div className="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
+      <div className="flex min-h-full items-center justify-center p-3 sm:p-4 text-center sm:p-0">
         <div
-          className={`relative transform overflow-hidden rounded-xl bg-slate-900 border border-slate-700/80 text-left shadow-2xl transition-all sm:my-8 w-full ${maxWidthClass}`}
+          className={`relative transform overflow-hidden rounded-xl bg-slate-900 border border-slate-700/80 text-left shadow-2xl transition-all my-auto sm:my-8 w-full max-h-[90vh] flex flex-col ${maxWidthClass}`}
         >
           {/* Header */}
-          <div className="flex items-center justify-between px-6 py-4 border-b border-slate-800">
+          <div className="flex items-center justify-between px-4 sm:px-6 py-3.5 sm:py-4 border-b border-slate-800 shrink-0">
             <div>
               <h3 className="text-base font-bold text-white">{title}</h3>
               {subtitle && <p className="text-xs text-slate-400 mt-0.5">{subtitle}</p>}
@@ -74,7 +74,7 @@ export const Modal: React.FC<ModalProps> = ({
           </div>
 
           {/* Body */}
-          <div className="px-6 py-4">{children}</div>
+          <div className="px-4 sm:px-6 py-4 overflow-y-auto flex-1">{children}</div>
         </div>
       </div>
     </div>

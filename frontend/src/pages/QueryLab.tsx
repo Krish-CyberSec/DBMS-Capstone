@@ -158,11 +158,11 @@ export default function QueryLab() {
           </p>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 w-full sm:w-auto">
           <button
             onClick={handleExecute}
             disabled={loading || !currentSql.trim()}
-            className="inline-flex items-center gap-2 px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-white rounded-lg font-medium shadow-md shadow-indigo-600/20 transition cursor-pointer"
+            className="w-full sm:w-auto justify-center inline-flex items-center gap-2 px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-white rounded-lg font-medium shadow-md shadow-indigo-600/20 transition cursor-pointer"
           >
             <Play className={`w-4 h-4 fill-white ${loading ? 'animate-spin' : ''}`} />
             {loading ? 'Executing...' : 'Run Query'}
