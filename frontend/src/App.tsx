@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { Analytics as VercelAnalytics } from '@vercel/analytics/react';
 import { AppLayout } from './layouts/AppLayout';
 
 // Pages
@@ -50,6 +51,7 @@ export default function App() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
+      <VercelAnalytics />
     </BrowserRouter>
   );
 }
