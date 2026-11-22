@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { Analytics as VercelAnalytics } from '@vercel/analytics/react';
 import { AppLayout } from './layouts/AppLayout';
 
 class ErrorBoundary extends React.Component<
@@ -98,6 +99,7 @@ export default function App() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
+      <VercelAnalytics />
     </BrowserRouter>
   </ErrorBoundary>
 );
